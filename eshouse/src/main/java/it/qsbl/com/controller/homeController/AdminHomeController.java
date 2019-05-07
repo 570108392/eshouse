@@ -19,7 +19,7 @@ public class AdminHomeController {
     }
 
 
-    @GetMapping("pages/welcome")
+    @GetMapping(value = {"pages/welcome","login/pages/welcome"})
     public String pagesWelcome(){
         return "pages/welcome";
     }

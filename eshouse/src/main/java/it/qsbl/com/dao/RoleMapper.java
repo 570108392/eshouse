@@ -13,7 +13,7 @@ public interface RoleMapper {
      * @param userID
      * @return
      */
-    @Select("select * from role where user_id=#{userID} ")
+    @Select("select * from role where id = (SELECT uid FROM user_role where uid =#{userID}) ")
     List<Role> gatAllRolesByName(@Param("userID")Integer userID);
 
     /**

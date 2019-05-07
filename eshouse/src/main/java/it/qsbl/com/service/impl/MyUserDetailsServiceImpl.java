@@ -39,7 +39,7 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
         /**设置用户权限*/
         List<Role> roles = roleSerivce.gatAllRolesByName(user.getId().intValue());
         List<GrantedAuthority> authorityList = new ArrayList<>();
-        roles.forEach(role -> authorityList.add(new SimpleGrantedAuthority("ROLE_"+role.getName())));
+        roles.forEach(role -> authorityList.add(new SimpleGrantedAuthority("ROLE_"+role.getUserId())));
         user.setAuthorityList(authorityList);
 
         return user;

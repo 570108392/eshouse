@@ -20,11 +20,9 @@ spring:
       initial-size: 10
       max-active: 20
       min-idle: 8
-    #####druid\u76D1\u63A7\u914D\u7F6E
       web-stat-filter:
         enabled: true
         url-pattern: /*
-#        exclusions: *.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
         session-stat-enable: true
         session-stat-max-count: 10000
         principal-session-name: admin

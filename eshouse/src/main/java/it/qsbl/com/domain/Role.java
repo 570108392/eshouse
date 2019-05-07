@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Role implements Serializable {
     private Integer id;
 
-    private Long userId;
+    private String userId;
 
     @NotBlank(message = "角色名称不能为空")
     private String name;

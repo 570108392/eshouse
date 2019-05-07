@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private static  final  String USER_INDEX = "/portal/index";
+    private static  final  String USER_INDEX = "/protal/information";
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
@@ -42,6 +42,10 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 		if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_COM"))){
 		    super.setTargetUrlParameter(USER_INDEX);
 		    super.setDefaultTargetUrl(USER_INDEX);
+        }
+		if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+		    super.setTargetUrlParameter("/login/success");
+		    super.setDefaultTargetUrl("/login/success");
         }
 		super.onAuthenticationSuccess(request,response,authentication);
 	}
