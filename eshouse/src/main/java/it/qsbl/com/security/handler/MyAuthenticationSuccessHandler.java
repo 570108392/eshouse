@@ -47,6 +47,9 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 		    super.setTargetUrlParameter("/login/success");
 		    super.setDefaultTargetUrl("/login/success");
         }
+			super.setTargetUrlParameter(USER_INDEX);
+			super.setDefaultTargetUrl(USER_INDEX);
+
 		super.onAuthenticationSuccess(request,response,authentication);
 	}
 

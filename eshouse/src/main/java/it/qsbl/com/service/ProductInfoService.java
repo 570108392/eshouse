@@ -58,4 +58,12 @@ public interface ProductInfoService {
      */
 //    List<ProductInfoVO> getAllProductInfo(String productionDate, String productStatus, String startTime, String endTime);
     List<ProductInfo> getAllProductInfo(String productionDate, String productStatus, String startTime, String endTime);
+
+    /**
+     * 修改商品库存
+     * @param id
+     * @param productStock
+     * @return
+     */
+    int editProductStock(String id, Integer productStock);
 }

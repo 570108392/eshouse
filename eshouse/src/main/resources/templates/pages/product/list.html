@@ -104,7 +104,13 @@
                     , {field: 'productPrice',  title: '商品价钱', align: 'center'}
                     // , {field: 'productTypeId', title: '商品编码',  align: 'center'}
                     , {field: 'productionDate', title: '生产日期',  align: 'center'}
-                    , {field: 'productStatus', title: '状态',  align: 'center'}
+                    , {field: 'productStatus', title: '状态',  align: 'center', templet:function(d){
+                        var status = d.productStock;
+                        if(status == 1)
+                            return "上架";
+                        else
+                            return "下架";
+                    }}
                     // , {field: 'productDesc', title: '描述', align: 'center'}
                     // , {field: 'productText', title: '简介',  align: 'center'}
                     , {field: 'productImage', title: '图片', templet: '<div><img src="{{ d.productImage}}" style="width: 100px;height: 100px;"></div>' , align: 'center'}
@@ -186,7 +192,7 @@
                                     body.find("#product_shelf_life").val(data.t.productShelfLife);
                                     body.find("#product_insert_time").val(data.t.productInsertTime);
                                     body.find("#product_modified_time").val(data.t.productModifiedTime);
-                                    body.find("#product_image_content").attr("src", data.t.productImage);
+                                    body.find("#productImage_content").attr("src", data.t.productImage);
                                 } else {
                                     layer.alert(data.msg, {icon: 5});
                                 }

@@ -50,4 +50,9 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     public List<ProductInfo> getAllProductInfo(String productionDate, String productStatus, String startTime, String endTime) {
         return productInfoMapper.getAllProductInfoByConition(productionDate,productStatus,startTime,endTime);
     }
+
+    @Override
+    public int editProductStock(String id, Integer productStock) {
+        return productInfoMapper.editProductStock(id,productStock);
+    }
 }

@@ -5,6 +5,7 @@ import it.qsbl.com.domain.vo.ProductInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -30,6 +31,9 @@ public interface ProductInfoMapper {
                                                     @Param("productStatus")String productStatus,
                                                     @Param("startTime")String startTime,
                                                     @Param("endTime")String endTime);
+
+    @Update("update  product_info set product_stock = #{productStock} where product_id = #{id}")
+    int editProductStock(@Param("id")String id, @Param("productStock")Integer productStock);
 /*
     List<ProductInfoVO> getAllProductInfoByConition(@Param("productName") String productName,
                                                     @Param("productStatus")String productStatus,

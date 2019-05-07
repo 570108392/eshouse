@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 @RequestMapping("admin")
 public class AdminController {
 
-    @Autowired
-    private RoleSerivce roleSerivce;
 
     @Autowired
     private UserService userService;

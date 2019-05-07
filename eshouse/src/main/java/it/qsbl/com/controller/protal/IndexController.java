@@ -1,8 +1,10 @@
 package it.qsbl.com.controller.protal;
 
 import it.qsbl.com.domain.ProductCategory;
+import it.qsbl.com.domain.User;
 import it.qsbl.com.domain.search.GoodsInfo;
 import it.qsbl.com.service.ProductCategoryService;
+import it.qsbl.com.service.UserService;
 import it.qsbl.com.service.es.GoodInfoService;
 import it.qsbl.com.utils.Result;
 import it.qsbl.com.utils.ResultTable;
@@ -12,8 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("protal")
@@ -23,6 +24,9 @@ public class IndexController {
     private GoodInfoService goodInfoService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ProductCategoryService productCategoryService;
     @GetMapping("getAllCategory")
     public String getAllCategory(){
@@ -30,6 +34,8 @@ public class IndexController {
        return productCategoryService.getProtalProductCategory();
 
     }
+
+
 
     @GetMapping("getGoodsCommodity")
     public ResultTable getGoodsCommodity(@RequestParam(value = "page",defaultValue = "1") Integer page,

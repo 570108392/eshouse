@@ -64,8 +64,8 @@
     <div class="login-bg">
       <div class="login-cont w1200">
         <div class="form-box">
-          <form class="layui-form" action="/login/index">
-            <legend>用户名密码登陆</legend>
+          <form class="layui-form" action="/protal/reg" method="post">
+            <legend>用户注册</legend>
             <div class="layui-form-item">
               <div class="layui-inline iphone">
                 <div class="layui-input-inline">
@@ -75,13 +75,13 @@
               </div>
               <div class="layui-inline veri-code">
                 <div class="layui-input-inline">
-                  <input id="pnum" type="password" name="" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                  <input id="pnum" type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
                 </div>
               </div>
             </div>
             <div class="layui-form-item login-btn">
               <div class="layui-input-block">
-                <input class="loginin" value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+                <input class="loginin" value="注册" lay-submit lay-filter="login" style="width:100%;" type="submit">
               </div>
             </div>
           </form>

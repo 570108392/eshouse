@@ -46,7 +46,7 @@
 
 
 
-   ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557198436800.png?Expires=1872558435&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=r%2B2NWEPhvAXk70SMWlm5xiYu4jM%3D)
+  ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557218047597.png?Expires=1872578062&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=VDKSd7R0DbYozbPRZfv%2FlnDZiqQ%3D)
 
 
 
@@ -54,7 +54,15 @@
 
 ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557198528207.png?Expires=1872558522&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=a2QdeHsvdOLKyNlSudenIOOH5Lk%3D)
 
-2. 门户网站访问
+​	
+
+2. 门户网站注册
+
+   访问网址：http://localhost:8080/protal/registe
+
+   ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557218187804.png?Expires=1872578178&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=S%2FgsSkJPdxdAR7WpPLa94OBBG3o%3D)
+
+3. 门户网站访问
 
    访问登陆网址：http://129.204.182.56:8080 
 
@@ -64,7 +72,7 @@
 
 
 
-   ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557198436800.png?Expires=1872558435&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=r%2B2NWEPhvAXk70SMWlm5xiYu4jM%3D)
+   ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557218047597.png?Expires=1872578062&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=VDKSd7R0DbYozbPRZfv%2FlnDZiqQ%3D)
 
    访问登陆网址：http://129.204.182.56:8080/protal/commodity 
 

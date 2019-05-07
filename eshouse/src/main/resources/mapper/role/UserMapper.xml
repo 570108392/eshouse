@@ -24,8 +24,8 @@
   </delete>
 
   <insert id="insert" parameterType="it.qsbl.com.domain.User">
-    insert into user (id, name)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+    insert into user (id, name,password)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
   </insert>
 
   <insert id="insertSelective" parameterType="it.qsbl.com.domain.User">

@@ -47,7 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/lib/**","/temp/**","/static/**"
                         ,"/login"
                         ,"/login/login"
-                        ,"/portal/login"
+                        ,"/protal/registe"//跳转用户注册页面
+                        ,"/protal/reg"//跳转用户注册信息提交方法
                         ,"/portal/index"
                         ,"/login/index").permitAll()
                 // 任何尚未匹配的URL只需要验证用户即可访问

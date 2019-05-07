@@ -1,16 +1,26 @@
 package it.qsbl.com.controller.homeController;
 
+import it.qsbl.com.domain.User;
+import it.qsbl.com.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Date;
+import java.util.Random;
 
 @Controller
 @RequestMapping("protal")
 @Slf4j
 public class ProtalHomeController {
+
+    @Autowired
+    private UserService userService;
 
     private static  final  String BASE_PROTAL_URL = "pages/portal/";
 
@@ -23,6 +33,28 @@ public class ProtalHomeController {
         return BASE_PROTAL_URL +"aa";
 
 
+    }
+
+    /**
+     * 用户注册
+     * @param username
+     * @param password
+     * @return
+     */
+    @PostMapping("reg")
+    public String reg(String username,String password){
+
+        User user = new User();
+        user.setPassword(password);
+        user.setName(username);
+        user.setCreateTime(new Date());
+        user.setId(new Random().nextInt(100000000));
+        Integer size = userService.insertUser(user);
+
+        if(size > 0)
+            return "redirect: /login/login";
+        else
+            return "404";
     }
     @GetMapping("about")
     public String about(){
@@ -55,7 +87,7 @@ public class ProtalHomeController {
         return BASE_PROTAL_URL +"information";
     }
 
-    @GetMapping("login")
+    @GetMapping("registe")
     public String login(){
         return BASE_PROTAL_URL +"login";
     }

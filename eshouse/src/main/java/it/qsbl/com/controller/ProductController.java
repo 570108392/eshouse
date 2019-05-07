@@ -70,6 +70,21 @@ public class ProductController {
     }
 
     /**
+     * 修改商品库存
+     * @param id
+     * @return
+     */
+    @GetMapping("editStock/{id}")
+    public Result editStock(@PathVariable String id,Integer productStock){
+        int size =  productInfoService.editProductStock(id,productStock);
+
+        if(size == 0)
+            return  Result.error(StatusEnum.NOT_ENTITY);
+
+        return Result.seccess();
+    }
+
+    /**
      * 添加商品详细信息
      * @param productInfo
      * @param bindingResult

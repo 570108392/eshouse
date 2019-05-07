@@ -21,6 +21,11 @@ public class ProductHomeController {
         return PRODUCT_BASIC_URL+"list";
     }
 
+    @GetMapping("stockList")
+    public String stockList(){
+        return PRODUCT_BASIC_URL+"stock";
+    }
+
     /**
      * 添加商品页面跳转页
      * @return

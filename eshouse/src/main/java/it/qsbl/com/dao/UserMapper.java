@@ -30,6 +30,8 @@ public interface UserMapper {
     @Insert("insert into user(name,phone_number,email,password,avatar) values(#{name},#{phoneNumber},#{email},#{password},#{avatar})")
     Integer insertUser(User user);
 
+    Integer insert(User user);
+
     void deleteUsers(@Param("list")List<Integer> list);
 
     @Delete("delete from user where id = #{id}")
