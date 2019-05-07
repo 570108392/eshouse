@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表-商城购物系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/weadmin.css">
+</head>
+
+<style>
+    .laytable-cell-1-avatar { /*最后的pic为字段的field*/
+        height: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .layui-table tbody .layui-table tr {
+        height: 100px !important;
+    }
+
+    .layui-table td {
+        height: 100px !important;
+    }
+
+    .laytable-cell-1-0-6 {
+        width: 128px !important;
+        height: 100px !important;
+    }
+</style>
+<body>
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">商品管理</a>
+        <a>
+          <cite>商品管理列表</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="weadmin-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 we-search" id="searchForm">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="开始日" name="product_startTime" id="start">
+            </div>
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="截止日" name="product_endTime" id="end">
+            </div>
+            <div class="layui-inline">
+                <input type="text" name="product_name" id="product_name" placeholder="商品名称" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-inline">
+            <select name="product_status" lay-verify="">
+                <option value="">商品状态</option>
+                <option value="1">上架</option>
+                <option value="0">下架</option>
+            </select>
+            </div>
+            <!--lay-filter="sreach"-->
+        </form>
+    </div>
+    <div class="weadmin-block">
+        <button class="layui-btn layui-btn-danger" onclick="delAll('productTable','/product/productInfoDeleteBatch')">批量删除</button>
+        <button class="layui-btn layui-btn-warm" id="button-search" onclick="search()">搜索</button>
+        <button class="layui-btn" onclick="WeAdminShow('添加商品信息','/productHome/productAdd')">添加</button>
+
+        <button class="layui-btn layui-btn-warm" id="button-userFlash" onclick="userFlash()">刷新</button>
+    </div>
+    <table class="layui-hide" id="productTable" lay-filter="productTableFilter"></table>
+
+</div>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+<script type="text/html" id="productTableToolbar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="show">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    layui.use(['form', 'layedit', 'laydate', 'element', 'table', 'jquery'], function () {
+        var table = layui.table;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+
+        var table_list = table.render({
+            elem: '#productTable'
+            , url: '/product/list'
+            , method: 'post'
+            ,toolbar: true
+            , cols: [
+                [
+                    {type: 'checkbox'}
+                    , {field: 'productId', title: '商品ID', sort: true, align: 'center'}
+                    , {field: 'productName',  title: '商品名称', align: 'center'}
+                    , {field: 'productPrice',  title: '商品价钱', align: 'center'}
+                    // , {field: 'productTypeId', title: '商品编码',  align: 'center'}
+                    , {field: 'productionDate', title: '生产日期',  align: 'center'}
+                    , {field: 'productStatus', title: '状态',  align: 'center'}
+                    // , {field: 'productDesc', title: '描述', align: 'center'}
+                    // , {field: 'productText', title: '简介',  align: 'center'}
+                    , {field: 'productImage', title: '图片', templet: '<div><img src="{{ d.productImage}}" style="width: 100px;height: 100px;"></div>' , align: 'center'}
+                    , {field: 'productStock', title: '库存',  align: 'center'}
+                    , {field: 'productUser', title: '商家',  align: 'center'}
+                    ,{field:'edit',  title: '编辑', toolbar: '#productTableToolbar',width:180,align:'center'}
+                    // , {field: 'productionDate', title: '生产日期',  align: 'center'}
+                    // , {field: 'productShelfLife', title: '有效日期',  align: 'center'}
+                    // , {field: 'productInsertTime', title: '录入日期',  align: 'center'}
+                    // , {field: 'productModifiedTime', title: '最后修改日期',  align: 'center'}
+                ]
+            ]
+            , page: true
+            , response: {
+                statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+            }
+            , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+
+               // $("#totalSize").text(res.total);
+                return {
+                    "code": res.status, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.total, //解析数据长度
+                    "data": res.t //解析数据列表
+                };
+            }
+        });
+
+        table.on('tool(productTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                $.ajax({
+                    url: "/prodcut/productDelete/"+data.productId,
+                    type: 'get',//method请求方式，get或者post
+                    success: function (data) {//res为相应体,function为回调函数
+                        if (data.status == 200) {
+                            layer.alert(data.t, {icon: 1});
+                            table.reload("productTable", {page: {curr: 1}});
+                        } else {
+                            layer.alert(data.msg, {icon: 5});
+                        }
+                    },
+                    error: function () {
+                        layer.alert("删除指定用户失败", {icon: 5});
+                    }
+                });
+            }
+            else if (obj.event === 'edit') {
+
+                var w = ($(window).width() * 0.9);
+                var h = ($(window).height() - 50);
+                layer.open({
+                    type: 2,
+                    area: [w + 'px', h + 'px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    shadeClose: true,
+                    shade: 0.4,
+                    title: '编辑商品信息页面',
+                    content: '/productHome/productEdit',
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        $.ajax({
+                            url: "/product/getProductInfo/" + data.productId,
+                            type: 'get',//method请求方式，get或者post
+                            success: function (data) {//res为相应体,function为回调函数
+                                if (data.status == 200) {
+                                    body.find("#product_id").val(data.t.productId);
+                                    body.find("#product_type_id").val(data.t.productTypeId);
+                                    body.find("#product_name").val(data.t.productName);
+                                    body.find("#product_weight").val(data.t.productWeight);
+                                    body.find("#product_price").val(data.t.productPrice);
+                                    body.find("#product_desc").text(data.t.productDesc);
+                                    body.find("#product_text").text(data.t.productText);
+                                    body.find("#product_stock").val(data.t.productStock);
+                                    body.find("#product_status").val(data.t.productStatus);
+                                    body.find("#product_user").val(data.t.productUser);
+                                    body.find("#production_date").val(data.t.productionDate);
+                                    body.find("#product_shelf_life").val(data.t.productShelfLife);
+                                    body.find("#product_insert_time").val(data.t.productInsertTime);
+                                    body.find("#product_modified_time").val(data.t.productModifiedTime);
+                                    body.find("#product_image_content").attr("src", data.t.productImage);
+                                } else {
+                                    layer.alert(data.msg, {icon: 5});
+                                }
+                            },
+                            error: function () {
+                                layer.alert("添加用户失败", {icon: 5});
+                            }
+                        });
+                    }
+                });
+
+
+            }
+            else if (obj.event === 'show') {
+                var w = ($(window).width() * 0.9);
+                var h = ($(window).height() - 50);
+                layer.open({
+                    type: 2,
+                    area: [w + 'px', h + 'px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    shadeClose: true,
+                    shade: 0.4,
+                    title: '查看用户信息',
+                    content: '/productHome/productShow',
+                    success: function (layero, index) {
+                        var body = layer.getChildFrame('body', index);
+                        $.ajax({
+                            url: "/product/getProductInfo/" + data.productId,
+                            type: 'get',//method请求方式，get或者post
+                            success: function (data) {//res为相应体,function为回调函数
+                                if (data.status == 200) {
+                                    body.find("#product_id").val(data.t.productId);
+                                    body.find("#product_type_id").val(data.t.productTypeId);
+                                    body.find("#product_name").val(data.t.productName);
+                                    body.find("#product_weight").val(data.t.productWeight);
+                                    body.find("#product_price").val(data.t.productPrice);
+                                    body.find("#product_desc").text(data.t.productDesc);
+                                    body.find("#product_text").text(data.t.productText);
+                                    body.find("#product_stock").val(data.t.productStock);
+                                    body.find("#product_status").val(data.t.productStatus);
+                                    body.find("#product_user").val(data.t.productUser);
+                                    body.find("#production_date").val(data.t.productionDate);
+                                    body.find("#product_shelf_life").val(data.t.productShelfLife);
+                                    body.find("#product_insert_time").val(data.t.productInsertTime);
+                                    body.find("#product_modified_time").val(data.t.productModifiedTime);
+                                    body.find("#product_image_content").attr("src", data.t.productImage);
+                                } else {
+                                    layer.alert("查看用户信息失败", {icon: 5});
+                                }
+                            },
+                            error: function () {
+                                layer.alert("查看用户信息失败", {icon: 5});
+                            }
+                        });
+                    }
+                });
+            }
+
+        });
+
+        //自定义多维度获取数据
+        window.search = function () {
+            //这里以搜索为例
+            table_list.reload({
+                where: { //设定异步数据接口的额外参数，任意设
+                    product_name: $("#product_name").val()
+                    ,product_status: $(".layui-this").attr("lay-value")
+                    , startTime: $("#start").val()
+                    , endTime: $("#end").val()
+                }
+                , page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        };
+        window.userFlash = function () {
+            table.reload("productTable", {page: {curr: 1}});
+        }
+    });
+</script>
+</html>

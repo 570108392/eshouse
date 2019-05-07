@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+  <script type="text/javascript" src="/static/layui/layui.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+
+<style>
+
+  .img > a > img {
+    width: 281px;
+    height: 264px;
+  }
+
+  dl > .active {
+    background-color: #ff00000f;
+  }
+</style>
+<body>
+
+  <div class="site-nav-bg">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+        <i class="layui-icon layui-icon-home"></i>
+        <a href="/protal/commodity">首页</a>
+      </p>
+      <div class="sn-quick-menu">
+        <div class="login"><a href="login.html">登录</a></div>
+        <div class="sp-cart"><a href="/protal/shopcart">购物车</a><span>2</span></div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="header">
+    <div class="headerLayout w1200">
+      <div class="headerCon">
+        <h1 class="mallLogo">
+          <a href="#" title="购物商城">
+            <!--<img src="/static/img/logo.png">-->
+          </a>
+        </h1>
+        <div class="mallSearch">
+          <form action="" class="layui-form" novalidate>
+            <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+            <input type="hidden" name="" value="">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content content-nav-base commodity-content">
+    <div class="main-nav">
+      <div class="inner-cont0">
+        <div class="inner-cont1 w1200">
+          <div class="inner-cont2">
+            <a href="/protal/commodity" class="active">所有商品</a>
+            <a href="/protal/buytoday">今日团购</a>
+            <a href="/protal/information">最新资讯</a>
+            <a href="/protal/about" >关于我们</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="commod-cont-wrap">
+      <div class="commod-cont w1200 layui-clear">
+        <div class="left-nav">
+          <div class="title">所有分类</div>
+          <div class="list-box" id="productCategoryList">
+          </div>
+        </div>
+        <div class="right-cont-wrap">
+          <div class="right-cont">
+            <div class="sort layui-clear" style="margin-bottom: 20px;">
+              <a class="active" href="javascript:;" onclick="selectToConditions('price','DESC')" >价格</a>
+              <a  href="javascript:;" onclick="selectToConditions('price','ASC')">价格</a>
+              <a href="javascript:;" onclick="selectToConditions('createTime','DESC')">新品</a>
+              <a href="javascript:;" onclick="selectToConditions('createTime','ASC')">新品</a>
+            </div>
+            <div class="cont-list layui-clear" id="list-cont">
+            </div>
+            <div id="demo0" style="text-align: center;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+  layui.use(['laypage','jquery'],function(){
+      var laypage = layui.laypage,
+          $ = layui.$;
+
+
+      $.ajax({
+          url:"/protal/getAllCategory",
+          type:'get',//method请求方式，get或者post
+          success:function(data){//res为相应体,function为回调函数
+              $("#productCategoryList").append(data);
+
+          },
+          error:function(){
+              layer.alert("删除指定用户失败",{icon: 5});
+          }
+      });
+      $.ajax({
+          url:"/protal/getGoodsCommodity",
+          type:'get',//method请求方式，get或者post
+          success:function(data){//res为相应体,function为回调函数
+              if(data.success){
+                  $("#list-cont").empty().append(data.t);
+                  laypage.render({
+                      elem: 'demo0'
+                      ,limit:15
+                      ,count: data.total //数据总数
+                      ,jump: function(obj, first){
+                          //首次不执行
+                          if(!first){
+                              $.ajax({
+                                  url: "/protal/getGoodsCommodity?page="+obj.curr,
+                                  type: 'get',//method请求方式，get或者post
+                                  success: function (data) {//res为相应体,function为回调函数
+                                      if (data.success)
+                                          $("#list-cont").empty().append(data.t);
+                                  }
+                              });
+                          }
+                      }
+                  });
+              }
+
+
+          },
+          error:function(){
+              layer.alert("删除指定用户失败",{icon: 5});
+          }
+      });
+
+      window.selectToConditions  = function(condtition,direction){
+          var id = $(".list-box > dl > .active > a").attr("id");
+          $.ajax({
+              url:"/protal/getProductByCategoryType/"+id+"?condtition="+condtition+"&direction="+direction,
+              type:'get',//method请求方式，get或者post
+              success:function(data){//res为相应体,function为回调函数
+                  if(data.success){
+                      $("#list-cont").empty().append(data.t);
+                      laypage.render({
+                          elem: 'demo0'
+                          ,limit:15
+                          ,count: data.total //数据总数
+                          ,jump: function(obj, first){
+                              //首次不执行
+                              if(!first){
+                                  $.ajax({
+                                      url: "/protal/getProductByCategoryType/"+id+"?page="+obj.curr,
+                                      type: 'get',//method请求方式，get或者post
+                                      success: function (data) {//res为相应体,function为回调函数
+                                          if (data.success)
+                                              $("#list-cont").empty().append(data.t);
+                                      }
+                                  });
+                              }
+                          }
+                      });
+                  }
+
+
+              },
+              error:function(){
+                  layer.alert("删除指定用户失败",{icon: 5});
+              }
+          });
+      }
+      window.catagroyType  = function(id,that){
+
+          // $(that).parent().siblings().removeClass("active");
+          $(".list-box > dl > dd").removeClass("active");
+          $(that).parent().addClass("active");//.siblings().removeClass("active");
+          $.ajax({
+              url:"/protal/getProductByCategoryType/"+id,
+              type:'get',//method请求方式，get或者post
+              success:function(data){//res为相应体,function为回调函数
+                  if(data.success){
+                      $("#list-cont").empty().append(data.t);
+                      laypage.render({
+                          elem: 'demo0'
+                          ,limit:15
+                          ,count: data.total //数据总数
+                          ,jump: function(obj, first){
+                              //首次不执行
+                              if(!first){
+                                  $.ajax({
+                                      url: "/protal/getProductByCategoryType/"+id+"?page="+obj.curr,
+                                      type: 'get',//method请求方式，get或者post
+                                      success: function (data) {//res为相应体,function为回调函数
+                                          if (data.success)
+                                              $("#list-cont").empty().append(data.t);
+                                      }
+                                  });
+                              }
+                          }
+                      });
+                  }
+
+
+              },
+              error:function(){
+                  layer.alert("删除指定用户失败",{icon: 5});
+              }
+          });
+      }
+
+
+    $('.sort a').on('click',function(){
+      $(this).addClass('active').siblings().removeClass('active');
+    })
+    $('.list-box dt').on('click',function(){
+      if($(this).attr('off')){
+        $(this).removeClass('active').siblings('dd').show()
+        $(this).attr('off','')
+      }else{
+        $(this).addClass('active').siblings('dd').hide()
+        $(this).attr('off',true)
+      }
+    })
+
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>管理员列表-商城购物系统</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="/static/css/font.css">
+		<link rel="stylesheet" href="/static/css/weadmin.css">
+	</head>
+
+	<style>
+		.laytable-cell-1-avatar{  /*最后的pic为字段的field*/
+			height: 100% !important;
+			max-width: 100% !important;
+		}
+
+		.layui-table tbody .layui-table tr{
+			height: 100px !important;
+		}
+		.layui-table td {
+			height: 100px !important;
+		}
+
+		.laytable-cell-1-0-9 {
+			width: 128px !important;
+			height: 100px !important;
+		}
+	</style>
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">管理员管理</a>
+        <a>
+          <cite>管理员列表</cite></a>
+      </span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">ဂ</i></a>
+		</div>
+		<div class="weadmin-body">
+			<div class="layui-row">
+				<form class="layui-form layui-col-md12 we-search" id="searchForm">
+					<div class="layui-inline">
+						<input class="layui-input" placeholder="开始日" name="startTime" id="start">
+					</div>
+					<div class="layui-inline">
+						<input class="layui-input" placeholder="截止日" name="endTime" id="end">
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="name" id="name" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+					</div>
+					<!--lay-filter="sreach"-->
+				</form>
+			</div>
+			<div class="weadmin-block">
+				<button class="layui-btn layui-btn-danger" onclick="delAll('userTable','/admin/deleteUsers')"><i class="layui-icon"></i>批量删除</button>
+				<button class="layui-btn" onclick="WeAdminShow('添加用户','/admin/list/add')"><i class="layui-icon"></i>添加</button>
+				<button class="layui-btn layui-btn-warm"  id="button-search" onclick="search()">搜索</button>
+				<button class="layui-btn layui-btn-warm"  id="button-userFlash" onclick="userFlash()">刷新</button>
+				<span class="fr" style="line-height:40px" id="totalSize">共有数据：88 条</span>
+			</div>
+			<table class="layui-hide" id="userTable" lay-filter="userTableFilter"></table>
+
+		</div>
+		<script src="/lib/layui/layui.js" charset="utf-8"></script>
+    	<script src="/static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/html" id="usernameTpl">
+		<img src="{{d.avatar}}" style="height: 200px;width: 200px;" class="layui-table-link">
+	</script>
+
+	<script type="text/html" id="userTableToolbar">
+		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="show">查看</a>
+		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+		<a class="layui-btn layui-btn-xs" lay-event="permission">授权</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	</script>
+	<script>
+        layui.use(['form', 'layedit', 'laydate','element','table','jquery'], function() {
+            var table = layui.table;
+            var $ = layui.jquery;
+            var layer = layui.layer;
+
+            var table_list = table.render({
+                elem: '#userTable'
+                ,toolbar: true
+                ,url:'/admin/list'
+				,method: 'post'
+                ,cols: [
+						[
+                            {type:'checkbox'}
+						,{field:'id',  title: 'ID',width:40, sort: true,align:'center'}
+						,{field:'name', width:80,title: '用户名',align:'center'}
+						,{field:'email', width:150, title: '邮件',align:'center'}
+						,{field:'phoneNumber', width:110, title: '联系方式',align:'center'}
+						,{field:'status', title: '状态', width:60,align:'center',templet:function(d){
+                                var status = d.status;
+                                if(status == 0)
+                                    return "冻结";
+                                if(status == 1)
+                                    return "正常";
+                            }}
+						,{field:'createTime',  title: '注册时间',width:200,align:'center'}
+						,{field:'lastLoginTime',  title: '上次访问时间',width:130,align:'center'}
+						,{field:'lastUpdateTime',  title: '上次修改时间',width:130,align:'center'}
+						,{field:'avatar',  title: '图片', templet: '<div><img src="{{ d.avatar}}" style="width: 100px;height: 100px;"></div>',width:100,align:'center'}
+						,{field:'edit',  title: '编辑', toolbar: '#userTableToolbar',width:220,align:'center'}
+						// ,{field:'edit',  title: '编辑', toolbar: '#userTableToolbar',width:180,align:'center'}
+						]
+					]
+                ,page: true
+                ,response: {
+                    statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+                }
+                ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+
+                    $("#totalSize").text(res.total);
+                    return {
+                        "code": res.status, //解析接口状态
+                        "msg": res.msg, //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.t //解析数据列表
+                    };
+                }
+            });
+
+            table.on('tool(userTableFilter)', function(obj){
+                var data = obj.data;
+                if(obj.event === 'del'){
+                    layer.msg('ID：'+ data.id + ' 的查看操作');
+                    $.ajax({
+                        url:"/admin/deleteUser",
+                        type:'post',//method请求方式，get或者post
+                        // dataType:'json',//预期服务器返回的数据类型
+                        // contentType: "application/json;charset=UTF-8",
+                        data: {"id":data.id},
+                        success:function(data){//res为相应体,function为回调函数
+                            if(data.status==200){
+                                layer.alert(data.t,{icon:1});
+                                table.reload("userTable",{page: {curr: 1 }});
+                            }else{
+                                layer.alert(data.msg,{icon: 5});
+                            }
+                        },
+                        error:function(){
+                            layer.alert("删除指定用户失败",{icon: 5});
+                        }
+                    });
+                }
+                else if(obj.event === 'edit'){
+
+					var w = ($(window).width() * 0.9);
+					var h = ($(window).height() - 50);
+                    layer.open({
+                        type: 2,
+                        area: [w + 'px', h + 'px'],
+                        fix: false, //不固定
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        title: '修改用户信息',
+                        content: '/admin/list/edit',
+                        success: function(layero, index){
+                            var body = layer.getChildFrame('body', index);
+                            $.ajax({
+                                url:"/admin/getUser/"+data.id,
+                                type:'get',//method请求方式，get或者post
+                                success:function(data){//res为相应体,function为回调函数
+                                    if(data.status==200){
+                                        body.find("#username").val(data.t.name);
+                                        body.find("#userid").val(data.t.id);
+                                        body.find("#phone").val(data.t.phoneNumber);
+                                        body.find("#L_email").val(data.t.email);
+                                        body.find("#L_pass").val(data.t.password);
+                                        body.find("#L_repass").val(data.t.password);
+                                        body.find("#admin_user_image_content").attr("src",data.t.avatar);
+                                    }else{
+                                        layer.alert(data.msg,{icon: 5});
+                                    }
+                                },
+                                error:function(){
+                                    layer.alert("添加用户失败",{icon: 5});
+                                }
+                            });
+                        }
+                    });
+
+
+				}
+				else if(obj.event === 'show'){
+                    var w = ($(window).width() * 0.9);
+                    var h = ($(window).height() - 50);
+                    layer.open({
+                        type: 2,
+                        area: [w + 'px', h + 'px'],
+                        fix: false, //不固定
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        title: '查看用户信息',
+                        content: '/admin/list/show',
+                        success: function(layero, index){
+                            var body = layer.getChildFrame('body', index);
+                            $.ajax({
+                                url:"/admin/getUser/"+data.id,
+                                type:'get',//method请求方式，get或者post
+                                success:function(data){//res为相应体,function为回调函数
+                                    if(data.status==200){
+                                        body.find("#username").val(data.t.name);
+                                        body.find("#userid").val(data.t.id);
+                                        body.find("#phone").val(data.t.phoneNumber);
+                                        body.find("#L_email").val(data.t.email);
+                                        body.find("#L_pass").val(data.t.password);
+                                        body.find("#L_repass").val(data.t.password);
+                                        body.find("#admin_user_image_content").attr("src",data.t.avatar);
+                                    }else{
+                                        layer.alert("查看用户信息失败",{icon: 5});
+                                    }
+                                },
+                                error:function(){
+                                    layer.alert("查看用户信息失败",{icon: 5});
+                                }
+                            });
+                        }
+                    });
+				}
+				else if(obj.event === 'permission'){
+                    var w = ($(window).width() * 0.9);
+                    var h = ($(window).height() - 50);
+                    layer.open({
+                        type: 2,
+                        area: [w + 'px', h + 'px'],
+                        fix: false, //不固定
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        title: '管理员角色分配',
+                        content: '/admin/permission',
+                        success: function(layero, index){
+                            var body = layer.getChildFrame('body', index);
+                            body.find("#username").val(data.name);
+                            body.find("#userId").val(data.id);
+                            $.ajax({
+                                url:"/role/premission/"+data.id,
+                                type:'get',//method请求方式，get或者post
+                                success:function(data){//res为相应体,function为回调函数
+                                    if(data.status==200){
+                                        console.log(data);
+                                        body.find("#user_permission").html(data.t);
+
+                                    }else{
+                                        layer.alert("查看用户信息失败",{icon: 5});
+                                    }
+                                },
+                                error:function(){
+                                    layer.alert("查看用户信息失败",{icon: 5});
+                                }
+                            });
+                        }
+                    });
+				}
+
+            });
+
+            //自定义多维度获取数据
+            window.search = function () {
+                //这里以搜索为例
+                table_list.reload({
+                    where: { //设定异步数据接口的额外参数，任意设
+                        name: $("#name").val()
+                        ,startTime: $("#start").val()
+                        ,endTime: $("#end").val()
+                    }
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                });
+            };
+
+            //删除指定用户信息
+            window.deleteOne = function () {
+                $.ajax({
+                    url:"/admin/deleteOne",
+                    type:'post',//method请求方式，get或者post
+                    dataType:'json',//预期服务器返回的数据类型
+                    // contentType: 'application/x-www-form-urlencoded',
+                    contentType: "application/json;charset=UTF-8",
+                    data:JSON.stringify({"name":$("#username").val(),"phoneNumber":$("#phone").val(),"email":$("#L_email").val(),"password":$("#L_pass").val()}),
+                    // data:{"name":$("#username").val(),"phoneNumber":$("#phone").val(),"email":$("#L_email").val(),"password":$("#L_pass").val()},
+                    // data:$("#user-add-form").serializeArray(),//表格数据序列化
+                    success:function(data){//res为相应体,function为回调函数
+                        if(data.status==200){
+                            layer.alert(data.t,{icon:1});
+                            layer.close(layer.index);
+                            window.parent.location.reload();
+
+                        }else{
+                            layer.alert(data.msg,{icon: 5});
+                        }
+                    },
+                    error:function(){
+                        layer.alert("添加用户失败",{icon: 5});
+                    }
+                });
+            }
+            
+            window.userFlash = function () {
+                table.reload("userTable",{page: {curr: 1 }});
+            }
+        });
+
+        function getUser(data){
+            $.ajax({
+                url:"/admin/getUser/"+data.id,
+                type:'get',//method请求方式，get或者post
+                success:function(data){//res为相应体,function为回调函数
+                    if(data.status==200){
+                        $("#username").val(data.name);
+                        $("#phone").val(data.phone);
+                        $("#L_email").val(data.L_email);
+                        $("#password").val(data.password);
+                        $("#passwordSeconde").val(data.passwordSeconde);
+
+                    }else{
+                        layer.alert(data.msg,{icon: 5});
+                    }
+                },
+                error:function(){
+                    layer.alert("添加用户失败",{icon: 5});
+                }
+            });
+		}
+	</script>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/css/font.css">
+		<link rel="stylesheet" href="/static/css/weadmin.css">
+  </head>
+  
+  <body>
+    <div class="weadmin-body">
+        <form class="layui-form">
+            <div style="float:right;width: 100%">
+                <!--上传图片-->
+                <div class="layui-upload">
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="product_image_content" src="https://t10.baidu.com/it/u=3457927833,1467857443&fm=76" style="width: 100%;height: 500px;">
+                    </div>
+                </div>
+            </div>
+            <div >
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="product_id" class="layui-form-label">
+                            <span class="we-red">*</span>商品ID
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_id" name="product_id" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="product_type_id" class="layui-form-label">
+                            <span class="we-red">*</span>商品编码
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_type_id" name="product_type_id" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="product_name" class="layui-form-label">
+                            <span class="we-red">*</span>商品名称
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_name" name="product_name" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="product_weight" class="layui-form-label">
+                            <span class="we-red">*</span>权重
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_weight" name="product_weight" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="product_stock" class="layui-form-label">
+                            <span class="we-red">*</span>商品库存
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_stock" name="product_stock" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="product_price" class="layui-form-label">
+                            <span class="we-red">*</span>商品价钱
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_price" name="product_price" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="product_user" class="layui-form-label">
+                            <span class="we-red">*</span>商品商家
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_user" name="product_user" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="production_date" class="layui-form-label">
+                            <span class="we-red">*</span>生产日期
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="production_date" name="production_date" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="product_shelf_life" class="layui-form-label">
+                            <span class="we-red">*</span>商品有效期
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_shelf_life" name="product_shelf_life" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="product_status" class="layui-form-label">
+                            <span class="we-red">*</span>商品状态
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_status" name="product_status" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="product_insert_time" class="layui-form-label">
+                            <span class="we-red">*</span>录入时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_insert_time" name="product_insert_time" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="product_modified_time" class="layui-form-label">
+                            <span class="we-red">*</span>修改时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="product_modified_time" name="product_modified_time" required="" lay-verify="required"
+                                   autocomplete="off" value="admin" class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 50px;margin-bottom: 20px;">
+                    <label for="product_desc" class="layui-form-label">
+                        <span class="we-red">*</span>商品描述
+                    </label>
+                    <textarea id="product_desc" name="product_desc" style="height: 100%;width: 500px;"></textarea>
+                </div>
+                <div style="height:80px;">
+                    <label for="product_text" class="layui-form-label">
+                        <span class="we-red">*</span>商品简介
+                    </label>
+                    <textarea id="product_text" name="product_text" style="height: 100%;width: 500px;"></textarea>
+                </div>
+
+
+
+
+
+            </div>
+
+
+        </form>
+        <button class="layui-btn layui-btn-warm"  onclick="user_search()" id="button-add" style="margin-top: 600px;">关闭</button>
+        <!--<button  class="layui-btn" lay-filter="add" lay-submit="">
+            增加
+        </button>-->
+    </div>
+		<script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    	// layui.extend({
+			// 	admin: '{/}/stat/admin'
+			// });
+        layui.use(['form', 'layedit', 'laydate','element','table','jquery','upload'], function() {
+	      var form = layui.form
+              ,admin = layui.admin
+              ,upload = layui.upload
+               $ = layui.jquery;
+	           layer = layui.layer;
+
+            window.user_search = function (){
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);//关闭当前页
+            };
+        });
+    </script>
+  </body>
+
+</html>

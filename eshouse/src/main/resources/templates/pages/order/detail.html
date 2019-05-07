@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>管理员列表-商城购物系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/weadmin.css">
+</head>
+
+<body>
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">管理员管理</a>
+        <a>
+          <cite>管理员列表</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="weadmin-body">
+    <input type="hidden" id="orderId" name="orderId">
+    <table class="layui-hide" id="orderTable" lay-filter="orderTableFilter"></table>
+</div>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+</body>
+<script type="text/html" id="order_status_select">
+
+    <select name="product_status" id="product_status">
+        <option value="1">准备发货</option>
+        <option value="2">发货中</option>
+        <option value="-1">退货</option>
+        <option value="3">收货</option>
+    </select>
+    <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>-->
+</script>
+<script>
+    layui.use(['table','jquery'], function() {
+        var table = layui.table;
+        var $ = layui.jquery;
+        table.render({
+            elem: '#orderTable'
+            ,toolbar: true
+            ,url:'/orderDetail/list/'+$("#orderId").val()
+            ,method: 'get'
+            ,cols: [
+                [
+                    {field:'orderDetailId',  title: '订单明细ID',width:130, sort: true,align:'center'}
+                    ,{field:'orderId', width:110, title: '订单ID',align:'center'}
+                    ,{field:'productId', title: '商品ID', width:100,align:'center'}
+                    ,{field:'productName',  title: '商品名称',width:200,align:'center'}
+                    ,{field:'productCnt',  title: '商品数量',width:130,align:'center'}
+                    ,{field:'productPrice',  title: '商品单价',width:130,align:'center'}
+                    ,{field:'averageCost',  title: '商品平均成本价', width:130,align:'center'}
+                    ,{field:'feeMoney',  title: '优惠金',width:130,width:100,align:'center'}
+                    ,{field:'wId',  title: '仓库ID',width:400, width:180,align:'center'}
+                    ,{field:'modifiedTime',  title: '修改时间',width:130,width:180,align:'center'}
+                ]
+            ]
+            ,response: {
+                statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+            }
+            ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+                return {
+                    "code": res.status, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.total, //解析数据长度
+                    "data": res.t //解析数据列表
+                };
+            }
+        });
+
+    });
+</script>
+</html>

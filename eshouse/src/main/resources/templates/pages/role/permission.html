@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tree-table</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<style>
+    .layui-btn:not(.layui-btn-lg ):not(.layui-btn-sm):not(.layui-btn-xs) {
+        height: 34px;
+        line-height: 34px;
+        padding: 0 8px;
+    }
+
+</style>
+<body>
+<div class="layui-container">
+    <div class="layui-btn-group" style="margin-top: 20px;">
+        <input type="hidden" id="role_id" name="role_id">
+        <button class="layui-btn" id="btn-expand">全部展开</button>
+        <button class="layui-btn" id="btn-fold">全部折叠</button>
+        <button class="layui-btn" id="btn-permission" onclick="permission()">授权</button>
+    </div>
+
+    <table id="menu_table" class="layui-table" lay-filter="menu_table"></table>
+</div>
+
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/static/module/'
+    }).extend({
+        treetable: 'treetable-lay/treetable'
+    }).use(['table', 'treetable'], function () {
+        var $ = layui.jquery;
+        var table = layui.table;
+        var treetable = layui.treetable;
+
+        // 渲染表格
+        layer.load(2);
+        treetable.render({
+            treeColIndex: 1,
+            treeSpid: -1,
+            treeIdName: 'mid',
+            treePidName: 'pid',
+            elem: '#menu_table',
+            url: '/menu/menuList/'+$("#role_id").val(),
+            page: false,
+            cols: [
+                [
+                    {type:'checkbox'},
+                    // {type: 'numbers'},
+                    // {field: 'mid', minWidth: 200, title: '菜单标识'},
+                    {field: 'mname', title: '菜单名称'},
+                    {field: 'mdesc', title: '菜单描述'},
+                    {field: 'menuUrl', title: '菜单路径'}
+                    // {templet: '#meun_status', minWidth: 200, align: 'center', title: '操作'}
+                ]
+            ],
+            done: function () {
+                layer.closeAll('loading');
+            }
+        });
+
+
+        window.permission = function () {
+            var checkStatus = table.checkStatus('menu_table')
+                ,data = checkStatus.data;
+            layer.alert(JSON.stringify(data));
+            $.ajax({
+                url:"/menu/updateRolePermission/"+$("#role_id").val(),
+                type:'post',//method请求方式，get或者post
+                dataType: 'json',//预期服务器返回的数据类型
+                contentType: "application/json;charset=UTF-8",
+                data:JSON.stringify(data),
+                success:function(data){//res为相应体,function为回调函数
+                    if(data.status==200){
+                        layer.alert(data.t,{icon:1});
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);//关闭当前页
+                    }else{
+                        layer.alert(data.msg,{icon: 5});
+                    }
+                },
+                error:function(){
+                    layer.alert("修改商品类型失败",{icon: 5});
+                }
+            });
+        }
+
+        $('#btn-expand').click(function () {
+            treetable.expandAll('#menu_table');
+        });
+
+        $('#btn-fold').click(function () {
+            treetable.foldAll('#menu_table');
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>欢迎页面-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="/static/css/font.css">
+	<link rel="stylesheet" href="/static/css/weadmin.css">
+</head>
+
+<body>
+<div class="weadmin-body">
+	<form class="layui-form">
+		<!--<div style="float:right;width: 100%">
+            &lt;!&ndash;上传图片&ndash;&gt;
+            <div class="layui-upload">
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" id="product_image_content" src="https://t10.baidu.com/it/u=3457927833,1467857443&fm=76" style="width: 100%;height: 500px;">
+                </div>
+            </div>
+        </div>-->
+		<div >
+			<div class="layui-inline">
+				<div class="layui-form-item">
+					<label for="member_id" class="layui-form-label">
+						<span class="we-red">*</span>会员ID
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="member_id" name="member_id" required="" lay-verify="required"
+							   autocomplete="off" value="admin" class="layui-input" readonly>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="member_name" class="layui-form-label">
+						<span class="we-red">*</span>会员昵称
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="member_name" name="member_name" required="" lay-verify="required"
+							   autocomplete="off" value="admin" class="layui-input" >
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="member_address" class="layui-form-label">
+						<span class="we-red">*</span>会员地址
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="member_address" name="member_address" required="" lay-verify="required"
+							   autocomplete="off" value="admin" class="layui-input" >
+					</div>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<div class="layui-form-item">
+					<label for="member_price" class="layui-form-label">
+						<span class="we-red">*</span>会员总消费
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="member_price" name="member_price" required="" lay-verify="required"
+							   autocomplete="off" value="admin" class="layui-input" readonly>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="member_tell" class="layui-form-label">
+						<span class="we-red">*</span>联系方式
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="member_tell" name="member_tell" required="" lay-verify="required"
+							   autocomplete="off" value="admin" class="layui-input" >
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="member_status" class="layui-form-label">
+						<span class="we-red">*</span>会员状态
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="member_status" name="member_status" required="" lay-verify="required"
+							   autocomplete="off" value="admin" class="layui-input" >
+					</div>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<div class="layui-form-item">
+					<label for="register_time" class="layui-form-label">
+						<span class="we-red">*</span>注册时间
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="register_time" name="register_time" required="" lay-verify="required"
+							   autocomplete="off" value="admin" class="layui-input" readonly>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="update_time" class="layui-form-label">
+						<span class="we-red">*</span>更新时间
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="update_time" name="update_time" required="" lay-verify="required"
+							   autocomplete="off" value="admin" class="layui-input" readonly>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="last_time" class="layui-form-label">
+						<span class="we-red">*</span>上次访问时间
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="last_time" name="last_time" required="" lay-verify="required"
+							   autocomplete="off" value="admin" class="layui-input" readonly>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<button class="layui-btn layui-btn-warm"  onclick="edit()" id="button-add" >编辑</button>
+	<!--<button  class="layui-btn" lay-filter="add" lay-submit="">
+        增加
+    </button>-->
+</div>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript">
+    layui.use(['form', 'layedit', 'laydate','element','table','jquery','upload'], function() {
+        var form = layui.form
+            ,admin = layui.admin
+            ,upload = layui.upload
+        $ = layui.jquery;
+        layer = layui.layer;
+
+        window.edit = function (){
+            $.ajax({
+                url:"/member/updateMember",
+                type:'post',//method请求方式，get或者post
+                dataType:'json',//预期服务器返回的数据类型
+                contentType: "application/json;charset=UTF-8",
+                data:JSON.stringify({
+                	"memberId":$("#member_id").val(),
+					"memberName":$("#member_name").val(),
+                    "memberAddress":$("#member_address").val(),
+                    "memberPrice":$("#member_price").val(),
+                    "lastTime":$("#last_time").val(),
+                    "registerTime":$("#register_time").val(),
+                    "updateTime":$("#update_time").val(),
+                    "memberTell":$("#member_tell").val(),
+                    "memberStatus":$("#member_status").val()
+                }),
+                success:function(data){//res为相应体,function为回调函数
+                    if(data.status==200){
+                        layer.alert(data.t,{icon:1});
+                        layer.close(layer.index);
+                        window.parent.location.reload();
+
+                    }else{
+                        layer.alert(data.msg,{icon: 5});
+                    }
+                },
+                error:function(){
+                    layer.alert("编辑会员信息失败",{icon: 5});
+                }
+            });
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);//关闭当前页
+        };
+    });
+</script>
+</body>
+
+</html>

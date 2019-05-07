@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="it.qsbl.com.dao.ProductInfoMapper">
+
+  <resultMap id="BaseResultMap" type="it.qsbl.com.domain.ProductInfo">
+    <id column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_type_id" jdbcType="VARCHAR" property="productTypeId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_weight" jdbcType="DECIMAL" property="productWeight" />
+    <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="product_image" jdbcType="VARCHAR" property="productImage" />
+    <result column="product_stock" jdbcType="INTEGER" property="productStock" />
+    <result column="product_status" jdbcType="INTEGER" property="productStatus" />
+    <result column="product_user" jdbcType="VARCHAR" property="productUser" />
+    <result column="production_date" jdbcType="TIMESTAMP" property="productionDate" />
+    <result column="product_shelf_life" jdbcType="INTEGER" property="productShelfLife" />
+    <result column="product_insert_time" jdbcType="TIMESTAMP" property="productInsertTime" />
+    <result column="product_modified_time" jdbcType="TIMESTAMP" property="productModifiedTime" />
+    <result column="product_desc" jdbcType="LONGVARCHAR" property="productDesc" />
+    <result column="product_text" jdbcType="LONGVARCHAR" property="productText" />
+  </resultMap>
+  <resultMap id="BaseResultMapVO" type="it.qsbl.com.domain.vo.ProductInfoVO">
+    <id column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="product_image" jdbcType="VARCHAR" property="productImage" />
+    <result column="product_stock" jdbcType="INTEGER" property="productStock" />
+    <result column="product_status" jdbcType="INTEGER" property="productStatus" />
+    <result column="product_user" jdbcType="VARCHAR" property="productUser" />
+    <result column="production_date" jdbcType="TIMESTAMP" property="productionDate" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    product_id, product_type_id, product_name, product_weight, product_price, product_image,
+    product_stock, product_status, product_user, production_date, product_shelf_life, 
+    product_insert_time, product_modified_time, product_desc, product_text
+  </sql>
+
+  <sql id="Base_Column_List_VO">
+    product_id, product_type_id, product_name, product_weight, product_price, product_image,
+    product_stock, product_status, product_user, production_date, product_shelf_life,
+    product_insert_time, product_modified_time, product_desc, product_text
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from product_info
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from product_info
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="insert" parameterType="it.qsbl.com.domain.ProductInfo">
+    insert into product_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productTypeId != null">
+        product_type_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productWeight != null">
+        product_weight,
+      </if>
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="productImage != null">
+        product_image,
+      </if>
+      <if test="productStock != null">
+        product_stock,
+      </if>
+      <if test="productStatus != null">
+        product_status,
+      </if>
+      <if test="productUser != null">
+        product_user,
+      </if>
+      <if test="productionDate != null">
+        production_date,
+      </if>
+      <if test="productShelfLife != null">
+        product_shelf_life,
+      </if>
+      <if test="productInsertTime != null">
+        product_insert_time,
+      </if>
+      <if test="productModifiedTime != null">
+        product_modified_time,
+      </if>
+      <if test="productDesc != null">
+        product_desc,
+      </if>
+      <if test="productText != null">
+        product_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productTypeId != null">
+        #{productTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productWeight != null">
+        #{productWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productImage != null">
+        #{productImage,jdbcType=VARCHAR},
+      </if>
+      <if test="productStock != null">
+        #{productStock,jdbcType=INTEGER},
+      </if>
+      <if test="productStatus != null">
+        #{productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productUser != null">
+        #{productUser,jdbcType=VARCHAR},
+      </if>
+      <if test="productionDate != null">
+        #{productionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productShelfLife != null">
+        #{productShelfLife,jdbcType=INTEGER},
+      </if>
+      <if test="productInsertTime != null">
+        #{productInsertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productModifiedTime != null">
+        #{productModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productDesc != null">
+        #{productDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="productText != null">
+        #{productText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKey" parameterType="it.qsbl.com.domain.ProductInfo">
+    update product_info
+    <set>
+      <if test="productTypeId != null">
+        product_type_id = #{productTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productWeight != null">
+        product_weight = #{productWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productImage != null">
+        product_image = #{productImage,jdbcType=VARCHAR},
+      </if>
+      <if test="productStock != null">
+        product_stock = #{productStock,jdbcType=INTEGER},
+      </if>
+      <if test="productStatus != null">
+        product_status = #{productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productUser != null">
+        product_user = #{productUser,jdbcType=VARCHAR},
+      </if>
+      <if test="productionDate != null">
+        production_date = #{productionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productShelfLife != null">
+        product_shelf_life = #{productShelfLife,jdbcType=INTEGER},
+      </if>
+      <if test="productInsertTime != null">
+        product_insert_time = #{productInsertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productModifiedTime != null">
+        product_modified_time = #{productModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productDesc != null">
+        product_desc = #{productDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="productText != null">
+        product_text = #{productText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+
+
+  <delete id="productInfoDeleteBatchByProductID" parameterType="java.util.List">
+    DELETE FROM product_info WHERE product_id IN
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <select id="getAllProductInfoByConitions" parameterType="it.qsbl.com.domain.ProductInfo" resultMap="BaseResultMap">
+
+    select  * form product_info
+    <where>
+      <if test="productId != null">
+        and product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productTypeId != null">
+        and product_type_id =#{productTypeId,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null">
+        and product_name =#{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="productWeight != null">
+        and product_weight =#{productWeight,jdbcType=DECIMAL}
+      </if>
+      <if test="productPrice != null">
+        and product_price =#{productPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="productImage != null">
+        and product_image =#{productImage,jdbcType=VARCHAR}
+      </if>
+      <if test="productStock != null">
+        and product_stock = #{productStock,jdbcType=INTEGER}
+      </if>
+      <if test="productStatus != null">
+        and product_status = #{productStatus,jdbcType=INTEGER}
+      </if>
+      <if test="productUser != null">
+        and product_user = #{productStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="productionDate != null">
+        and production_date = #{productionDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="productShelfLife != null">
+        and product_shelf_life = #{productShelfLife,jdbcType=VARCHAR}
+      </if>
+      <if test="productInsertTime != null">
+        and product_insert_time = #{productInsertTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="productModifiedTime != null">
+        and product_modified_time = #{productModifiedTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="productDesc != null">
+        and product_desc = #{productDesc,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="productText != null">
+        and product_text = #{productText,jdbcType=LONGVARCHAR}
+      </if>
+
+    </where>
+
+  </select>
+ <!-- &#45;&#45;         and product_name =#{productName,jdbcType=VARCHAR}-->
+  <select id="getAllProductInfoByConition"  resultMap="BaseResultMap">
+
+    select  * from product_info
+    <where>
+
+      <if test="productName != null and productName != '' ">
+
+        and product_name LIKE '%${productName}%'
+      </if>
+      <if test="productStatus != null and productStatus != ''">
+        and product_status = #{productStatus,jdbcType=INTEGER}
+      </if>
+      <if test="startTime != null and startTime != '' and endTime != null and  endTime != ''">
+        and production_date between  str_to_date(#{startTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s') and  str_to_date(#{endTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s')
+      </if>
+    </where>
+
+  </select>
+</mapper>

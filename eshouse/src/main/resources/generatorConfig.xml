@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--利用MyBatis Generator里面的Xml文件格式，复制成为resource的xml文件，并进行修改-->
+<generatorConfiguration>
+    <!--找到MySQL驱动包的路径-->
+    <classPathEntry location="F:\JAVA\Maven\Repository\mysql\mysql-connector-java\8.0.15\mysql-connector-java-8.0.15.jar" />
+    <!--配置连接MySQL数据库的信息-->
+    <context id="inputdb" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://120.79.218.15:3306/xunwu"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+        <!--会将数据库里的int类型数据转换为Java里的bigDecimals -->
+        <!--<javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>-->
+        <!--配置各个文件的相对路径和项目路径-->
+        <!--产生实体类，需要和App是同级的-->
+        <javaModelGenerator targetPackage="it.qsbl.com.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!--映射文件，一定是在resources中的-->
+        <sqlMapGenerator targetPackage="mapper/role"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!--底层dao-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="it.qsbl.com.dao"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--将example类型设为false，否则实体类里面会多一个example的类exampleStudent -->
+        <!--表明为数据库的表明，生成实体类Student，会自动生成到entity的目录中-->
+        <!--<table tableName="house" domainObjectName="House" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="house_detail" domainObjectName="HouseDetail" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="house_picture" domainObjectName="HouseDicture" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="house_subscribe" domainObjectName="HouseSubscribe" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="house_tag" domainObjectName="HouseTag" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="role" domainObjectName="Role" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="subway" domainObjectName="Subway" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="subway_station" domainObjectName="SubwayStation" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="support_address" domainObjectName="SupportAddress" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="user" domainObjectName="User" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="product_category" domainObjectName="ProductCategory" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="product_comment" domainObjectName="ProductComment" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="product_info" domainObjectName="ProductInfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="product_pic_info" domainObjectName="ProductRicInfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <table tableName="order_cart" domainObjectName="OrderCart" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <!--<table tableName="order_detail" domainObjectName="OrderDetail" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="order_master" domainObjectName="OrderMaster" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="menu" domainObjectName="Menu" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="menu_role" domainObjectName="MenuRole" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+
+
+    </context>
+</generatorConfiguration>

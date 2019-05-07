@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="it.qsbl.com.dao.MemberMapper">
+  <resultMap id="BaseResultMap" type="it.qsbl.com.domain.Member">
+    <id column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="member_name" jdbcType="VARCHAR" property="memberName" />
+    <result column="member_address" jdbcType="VARCHAR" property="memberAddress" />
+    <result column="member_price" jdbcType="DECIMAL" property="memberPrice" />
+    <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="member_tell" jdbcType="VARCHAR" property="memberTell" />
+    <result column="member_status" jdbcType="INTEGER" property="memberStatus" />
+  </resultMap>
+  <resultMap id="BaseResultMapVO" type="it.qsbl.com.domain.vo.MemberVO">
+    <id column="member_id" jdbcType="INTEGER" property="memberId" />
+    <result column="member_name" jdbcType="VARCHAR" property="memberName" />
+    <result column="member_price" jdbcType="DECIMAL" property="memberPrice" />
+    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
+    <result column="member_tell" jdbcType="VARCHAR" property="memberTell" />
+    <result column="member_status" jdbcType="INTEGER" property="memberStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    member_id, member_name, member_address, member_price, last_time, register_time, update_time,
+    member_tell, member_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from member
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from member
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="it.qsbl.com.domain.Member">
+    insert into member (member_id, member_name, member_address,
+      member_price, last_time, register_time, 
+      update_time, member_tell, member_status
+      )
+    values (#{memberId,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, #{memberAddress,jdbcType=VARCHAR}, 
+      #{memberPrice,jdbcType=DECIMAL}, #{lastTime,jdbcType=TIMESTAMP}, #{registerTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{memberTell,jdbcType=VARCHAR}, #{memberStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="it.qsbl.com.domain.Member">
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        member_id,
+      </if>
+      <if test="memberName != null">
+        member_name,
+      </if>
+      <if test="memberAddress != null">
+        member_address,
+      </if>
+      <if test="memberPrice != null">
+        member_price,
+      </if>
+      <if test="lastTime != null">
+        last_time,
+      </if>
+      <if test="registerTime != null">
+        register_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="memberTell != null">
+        member_tell,
+      </if>
+      <if test="memberStatus != null">
+        member_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null">
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberAddress != null">
+        #{memberAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPrice != null">
+        #{memberPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberTell != null">
+        #{memberTell,jdbcType=VARCHAR},
+      </if>
+      <if test="memberStatus != null">
+        #{memberStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="it.qsbl.com.domain.Member">
+    update member
+    <set>
+      <if test="memberName != null">
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberAddress != null">
+        member_address = #{memberAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPrice != null">
+        member_price = #{memberPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="lastTime != null">
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerTime != null">
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberTell != null">
+        member_tell = #{memberTell,jdbcType=VARCHAR},
+      </if>
+      <if test="memberStatus != null">
+        member_status = #{memberStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="it.qsbl.com.domain.Member">
+    update member
+    set member_name = #{memberName,jdbcType=VARCHAR},
+      member_address = #{memberAddress,jdbcType=VARCHAR},
+      member_price = #{memberPrice,jdbcType=DECIMAL},
+      last_time = #{lastTime,jdbcType=TIMESTAMP},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      member_tell = #{memberTell,jdbcType=VARCHAR},
+      member_status = #{memberStatus,jdbcType=INTEGER}
+    where member_id = #{memberId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getAllMemberByConition"  resultMap="BaseResultMapVO">
+
+    select  * from member
+    <where>
+
+      <if test="memberName != null and memberName != '' ">
+
+        and member_name LIKE '%${memberName}%'
+      </if>
+      <if test="memberStatus != null and memberStatus != ''">
+        and member_status = #{memberStatus,jdbcType=INTEGER}
+      </if>
+      <if test="startTime != null and startTime != '' and endTime != null and  endTime != ''">
+        and register_time between  str_to_date(#{startTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s') and  str_to_date(#{endTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s')
+      </if>
+    </where>
+
+  </select>
+</mapper>

@@ -1,0 +1,71 @@
+spring:
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+    prefix: classpath:/templates/
+    suffix: .html
+
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.112.122.183:3306/xunwu?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    password: root
+    username: root
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    druid:
+    ###datasource druid pool
+      initial-size: 10
+      max-active: 20
+      min-idle: 8
+    #####druid\u76D1\u63A7\u914D\u7F6E
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+#        exclusions: *.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
+        session-stat-enable: true
+        session-stat-max-count: 10000
+        principal-session-name: admin
+        principal-cookie-name: admin
+        profile-enable: true
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-password: admin
+        login-username: admin
+        allow: 127.0.0.1
+      filter:
+        stat:
+          enabled: true
+          log-slow-sql: true  #\u5F00\u542F\u6162SQL\u67E5\u8BE2
+          slow-sql-millis: 2000
+  servlet:
+    multipart:
+      enabled: true
+      location: F:/IDEA/eshouse/src/main/resources/tmp/
+      max-file-size: 10MB
+      max-request-size: 20MB
+  jackson:
+    date-format: yyyy-MM-dd
+  data:
+    elasticsearch:
+      cluster-nodes: 129.204.182.56:9300
+      repositories:
+        enabled: true
+      cluster-name: docker-cluster
+  rabbitmq:
+    host: 130.79.218.15
+    virtual-host: /
+
+logging:
+  level:
+    it.qsbl.com.dao: debug
+mybatis:
+  mapper-locations: classpath:/mapper/*/*Mapper.xml
+  type-aliases-package: it.qsbl.com.domain
+  configuration:
+    map-underscore-to-camel-case: true
+

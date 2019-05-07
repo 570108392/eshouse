@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+  <script type="text/javascript" src="/static/layui/layui.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+
+<style>
+  img {
+    border: none;
+    width: 280px;
+    height: 280px;
+  }
+</style>
+<body>
+
+  <div class="site-nav-bg">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+        <i class="layui-icon layui-icon-home"></i>
+        <a href="#">首页</a>
+      </p>
+      <div class="sn-quick-menu">
+        <div class="login"><a href="/protal/login">登录</a></div>
+        <div class="sp-cart"><a href="/protal/shopcart">购物车</a><span>2</span></div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="header">
+    <div class="headerLayout w1200">
+      <div class="headerCon">
+        <h1 class="mallLogo">
+          <a href="#" title="购物商城">
+            <!--<img src="/static/img/logo.png">-->
+          </a>
+        </h1>
+        <div class="mallSearch">
+          <form action="" class="layui-form" novalidate>
+            <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+            <input type="hidden" name="" value="">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content content-nav-base information-content">
+    <div class="main-nav">
+      <div class="inner-cont0">
+        <div class="inner-cont1 w1200">
+          <div class="inner-cont2">
+            <a href="/protal/commodity">所有商品</a>
+            <a href="/protal/buytoday">今日团购</a>
+            <a href="/protal/information" class="active">最新资讯</a>
+            <a href="/protal/about">关于我们</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-list-box">
+      <div class="info-list w1200">
+        <div class="item-box layui-clear" id="list-cont">
+          <div class="item">
+            <div class="img">
+              <img src="https://img14.360buyimg.com/mobilecms/s280x280_jfs/t1/37266/14/5105/174779/5cbe6858Eb6651854/3fb65aea6babd402.jpg!q90.webp" alt="">
+            </div>
+            <div class="text">
+              <h4>漫步者/MBZ典藏版</h4>
+              <p class="data">2019-05-01 16:33:26</p>
+              <p class="info-cont">【海外名品 已质检 直降2800】漫步者/MBZ典藏版 限量版定制 品牌直营 夏季潮流时尚男鞋 典雅黑--专柜品质 41</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="https://img11.360buyimg.com/mobilecms/s280x280_jfs/t1/35995/18/5556/204210/5cbfc303E0e6e89a8/a23e5d7e839b8fe7.jpg!q90.webp" alt="">
+            </div>
+            <div class="text">
+              <h4>盛凡智尊</h4>
+              <p class="data">2019-05-01 16:33:26</p>
+              <p class="info-cont">盛凡智尊 i7升6核至强e5/GTX1060升8G显卡/水冷吃鸡游戏台式电脑主机/DIY组装机全套</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="https://img20.360buyimg.com/mobilecms/s280x280_jfs/t10888/335/1248622203/92633/a0f69a17/59de1802Nacae2eb2.jpg!q90.webp" alt="">
+            </div>
+            <div class="text">
+              <h4>Meitu 美图M8s</h4>
+              <p class="data">2019-05-01 16:33:26</p>
+              <p class="info-cont">Meitu 美图M8s 芭比粉 4GB+64GB 自拍 云美化 夜景美化 智能 正品 手机 电影人像 4G全网通 移动版</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="https://img14.360buyimg.com/mobilecms/s280x280_jfs/t1/42568/9/348/136401/5cc19528E7e16e869/e097cdc24e6d11a8.jpg!q90.webp" alt="">
+            </div>
+            <div class="text">
+              <h4>INTERIGHT牛仔裤男</h4>
+              <p class="data">2019-05-01 16:33:26</p>
+              <p class="info-cont">INTERIGHT牛仔裤男 轻商务合体修身 超弹牛仔裤浅黑色 32 175/80A</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="https://img11.360buyimg.com/mobilecms/s500x500_jfs/t1/36500/31/2405/171785/5cb98d9aE88bb750c/cf04fd744f37543f.jpg" alt="">
+            </div>
+            <div class="text">
+              <h4>艾戈勒（agelocer）博世月相系列瑞士进口手表男全自动机械表</h4>
+              <p class="data">2019-05-01 16:33:26</p>
+              <p class="info-cont">艾戈勒（agelocer）博世月相系列瑞士进口手表男全自动机械表 全景背透 80小时长动能 潮男腕表 经典银鳄鱼纹 80小时动能 全景背透 6401A1</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="https://img12.360buyimg.com/mobilecms/s500x500_jfs/t17842/217/374146678/298827/409808d2/5a718e62Nb992dfd6.jpg" alt="">
+            </div>
+            <div class="text">
+              <h4>陈皮普洱茶柑普茶自营茶叶</h4>
+              <p class="data">2019-05-01 16:33:26</p>
+              <p class="info-cont">【京东自有品牌】八享时新会小青柑250g 陈皮普洱茶柑普茶自营茶叶</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="https://img10.360buyimg.com/mobilecms/s500x500_jfs/t1/35610/29/4180/191619/5cbed872E956926fb/9be0c7a417c74e61.jpg" alt="">
+            </div>
+            <div class="text">
+              <h4>凤凰电动车</h4>
+              <p class="data">2019-05-01 16:33:26</p>
+              <p class="info-cont">凤凰电动车折叠锂电池助力车成人自行车电瓶车男女式小型车 36V黑/单速/三挡助力/纯电续航35-40km</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="https://img12.360buyimg.com/mobilecms/s500x500_jfs/t1/30619/14/11418/162694/5cb5455cE13795afd/156ff7595b0e6288.jpg" alt="">
+            </div>
+            <div class="text">
+              <h4>尚品宅配定制衣柜</h4>
+              <p class="data">2019-05-01 16:33:26</p>
+              <p class="info-cont">尚品宅配定制衣柜 现代简约衣柜推拉门移门 卧室衣帽间衣橱大衣柜定做 衣柜定制 全屋定制 预付金(非商品价格)</p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+<script>
+  layui.config({
+    base: '/static/js/util/' //你存放新模块的目录，注意，不是layui的模块目录
+  }).use(['mm','laypage'],function(){
+      var
+      mm = layui.mm,laypage = layui.laypage;
+      laypage.render({
+        elem: 'demo0'
+        ,count: 100 //数据总数
+      });
+});
+
+</script>
+
+
+</body>
+</html>

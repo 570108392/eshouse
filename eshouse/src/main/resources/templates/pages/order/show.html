@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/static/css/font.css">
+		<link rel="stylesheet" href="/static/css/weadmin.css">
+  </head>
+  
+  <body>
+    <div class="weadmin-body">
+        <form class="layui-form">
+            <!--<div style="float:right;width: 100%">
+                &lt;!&ndash;上传图片&ndash;&gt;
+                <div class="layui-upload">
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="product_image_content" src="https://t10.baidu.com/it/u=3457927833,1467857443&fm=76" style="width: 100%;height: 500px;">
+                    </div>
+                </div>
+            </div>-->
+            <div >
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="orderId" class="layui-form-label">
+                            <span class="we-red">*</span>订单ID
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderId" name="orderId" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="orderSn" class="layui-form-label">
+                            <span class="we-red">*</span>订单编号
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderSn" name="orderSn" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="customerId" class="layui-form-label">
+                            <span class="we-red">*</span>下单人ID
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="customerId" name="customerId" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="shippingUser" class="layui-form-label">
+                            <span class="we-red">*</span>收货人姓名
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="shippingUser" name="shippingUser" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="address" class="layui-form-label">
+                            <span class="we-red">*</span>收货地址
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="address" name="address" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="shippingSn" class="layui-form-label">
+                            <span class="we-red">*</span>快递单号
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="shippingSn" name="shippingSn" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="shippingCompName" class="layui-form-label">
+                            <span class="we-red">*</span>快递公司
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="shippingCompName" name="shippingCompName" required="" lay-verify="required"
+                                   autocomplete="off" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="orderStatus" class="layui-form-label">
+                            <span class="we-red">*</span>订单状态
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderStatus" name="orderStatus" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="createTime" class="layui-form-label">
+                            <span class="we-red">*</span>下单时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="createTime" name="createTime" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="shippingTime" class="layui-form-label">
+                            <span class="we-red">*</span>发货时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="shippingTime" name="shippingTime" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="receiveTime" class="layui-form-label">
+                            <span class="we-red">*</span>收货时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="receiveTime" name="receiveTime" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="orderMoney" class="layui-form-label">
+                            <span class="we-red">*</span>订单金额
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="orderMoney" name="orderMoney" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-form-item">
+                        <label for="payTime" class="layui-form-label">
+                            <span class="we-red">*</span>支付时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="payTime" name="payTime" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="modifiedTime" class="layui-form-label">
+                            <span class="we-red">*</span>最后修改时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="modifiedTime" name="modifiedTime" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="paymentMoney" class="layui-form-label">
+                            <span class="we-red">*</span>支付金额
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="paymentMoney" name="paymentMoney" required="" lay-verify="required"
+                                   autocomplete="off"  class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <button class="layui-btn layui-btn-warm"  onclick="user_search()" id="button-add" >关闭</button>
+        <!--<button  class="layui-btn" lay-filter="add" lay-submit="">
+            增加
+        </button>-->
+    </div>
+		<script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    	// layui.extend({
+			// 	admin: '{/}/stat/admin'
+			// });
+        layui.use(['form', 'layedit', 'laydate','element','table','jquery','upload'], function() {
+	      var form = layui.form
+              ,admin = layui.admin
+              ,upload = layui.upload
+               $ = layui.jquery;
+	           layer = layui.layer;
+
+            window.user_search = function (){
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);//关闭当前页
+            };
+        });
+    </script>
+  </body>
+
+</html>

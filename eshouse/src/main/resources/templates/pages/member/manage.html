@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>管理员列表-商城购物系统</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="/static/css/font.css">
+	<link rel="stylesheet" href="/static/css/weadmin.css">
+</head>
+
+<body>
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">管理员管理</a>
+        <a>
+          <cite>管理员列表</cite></a>
+      </span>
+	<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+		<i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="weadmin-body">
+	<div class="layui-row">
+		<form class="layui-form layui-col-md12 we-search" id="searchForm">
+			<div class="layui-inline">
+				<input class="layui-input" placeholder="开始日" name="startTime" id="start">
+			</div>
+			<div class="layui-inline">
+				<input class="layui-input" placeholder="截止日" name="endTime" id="end">
+			</div>
+			<div class="layui-inline">
+				<input type="text" name="name" id="name" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+			</div>
+			<!--<div class="layui-inline">
+				<select name="member_status" lay-verify="">
+					<option value="">审核状态</option>
+					<option value="1">审核通过</option>
+					<option value="0">审核禁止</option>
+				</select>
+			</div>-->
+			<!--lay-filter="sreach"-->
+		</form>
+	</div>
+	<div class="weadmin-block">
+		<button class="layui-btn" onclick="quartzSend()"><i class="layui-icon"></i>消息定时推送</button>
+		<button class="layui-btn layui-btn-warm"  id="button-search" onclick="search()">搜索</button>
+		<button class="layui-btn layui-btn-warm"  id="button-userFlash" onclick="userFlash()">刷新</button>
+	</div>
+	<table class="layui-hide" id="memberTable" lay-filter="memberTableFilter"></table>
+
+</div>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+<script type="text/html" id="memberTableToolbar">
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="tongguo">审核通过</a>
+	<a class="layui-btn layui-btn-xs" lay-event="jujue">审核禁止</a>
+</script>
+<script>
+    layui.use(['form', 'layedit', 'laydate','element','table','jquery'], function() {
+        var table = layui.table;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+
+        var table_list = table.render({
+            elem: '#memberTable'
+            ,url:'/member/list'
+            ,method: 'post'
+            ,cols: [
+                [
+                    {type:'checkbox'}
+                    ,{field:'memberId',  title: 'ID',width:30, sort: true,align:'center'}
+                    ,{field:'memberName', title: '名称',align:'center'}
+                    // ,{field:'memberAddress', width:150, title: '地址',align:'center'}
+                    ,{field:'memberPrice',  title: '总消费',align:'center'}
+                    // ,{field:'lastTime', title: '上次访问时间', width:60,align:'center'}
+                    ,{field:'registerTime',  title: '注册时间',align:'center'}
+                    // ,{field:'updateTime',  title: '更新时间',width:130,align:'center'}
+                    ,{field:'memberTell',  title: '联系方式',align:'center'}
+                    ,{field:'memberStatus',  title: '状态',align:'center',templet:function(d){
+                        var status = d.memberStatus;
+                        if(status == 0)
+                            return "冻结";
+                        if(status == 1)
+                            return "正常";
+                    }}
+                    ,{field:'edit',  title: '编辑', toolbar: '#memberTableToolbar',width:280,align:'center'}
+                ]
+            ]
+            ,page: true
+            ,response: {
+                statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+            }
+            ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+
+                $("#totalSize").text(res.total);
+                return {
+                    "code": res.status, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.total, //解析数据长度
+                    "data": res.t //解析数据列表
+                };
+            }
+        });
+
+        table.on('tool(memberTableFilter)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'tongguo' || obj.event === 'jujue'){
+                var status = obj.event === 'tongguo' ? 1 : 0;
+
+                if(status === data.memberStatus){
+                    layer.alert("不能进行相同操作",{icon: 5});
+                    return;
+				}
+                $.ajax({
+                    url:"/member/editStatus",
+                    type:'post',//method请求方式，get或者post
+                    dataType:'json',//预期服务器返回的数据类型
+                    data:{
+                        "status":status,
+                        "id": data.memberId
+                    },
+                    success:function(data){//res为相应体,function为回调函数
+                        if(data.status==200){
+                            layer.alert(data.t,{icon:1});
+                            table.reload("memberTable",{page: {curr: 1 }});
+                        }else{
+                            layer.alert(data.msg,{icon: 5});
+                        }
+                    },
+                    error:function(){
+                        layer.alert("修改会员状态失败",{icon: 5});
+                    }
+                });
+            }
+        });
+
+        //自定义多维度获取数据
+        window.search = function () {
+            //这里以搜索为例
+            table_list.reload({
+                where: { //设定异步数据接口的额外参数，任意设
+                    name: $("#name").val()
+                    ,startTime: $("#start").val()
+                    ,endTime: $("#end").val()
+                    //,memberStatus: $(".layui-this").attr("lay-value")
+                }
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        };
+
+        window.quartzSend = function () {
+            var w = ($(window).width() * 0.9);
+            var h = ($(window).height() - 50);
+            layer.open({
+                type: 2,
+                area: [w + 'px', h + 'px'],
+                fix: false, //不固定
+                maxmin: true,
+                shadeClose: true,
+                shade: 0.4,
+                title: '编辑商品信息页面',
+                content: '/memberHome/quartzSend',
+                success: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    $.ajax({
+                        url: "/product/getProductInfo/" + data.productId,
+                        type: 'get',//method请求方式，get或者post
+                        success: function (data) {//res为相应体,function为回调函数
+                            if (data.status == 200) {
+                                body.find("#product_id").val(data.t.productId);
+                                body.find("#product_type_id").val(data.t.productTypeId);
+                                body.find("#product_name").val(data.t.productName);
+                                body.find("#product_weight").val(data.t.productWeight);
+                                body.find("#product_price").val(data.t.productPrice);
+                                body.find("#product_desc").text(data.t.productDesc);
+                                body.find("#product_text").text(data.t.productText);
+                                body.find("#product_stock").val(data.t.productStock);
+                                body.find("#product_status").val(data.t.productStatus);
+                                body.find("#product_user").val(data.t.productUser);
+                                body.find("#production_date").val(data.t.productionDate);
+                                body.find("#product_shelf_life").val(data.t.productShelfLife);
+                                body.find("#product_insert_time").val(data.t.productInsertTime);
+                                body.find("#product_modified_time").val(data.t.productModifiedTime);
+                                body.find("#product_image_content").attr("src", data.t.productImage);
+                            } else {
+                                layer.alert(data.msg, {icon: 5});
+                            }
+                        },
+                        error: function () {
+                            layer.alert("添加用户失败", {icon: 5});
+                        }
+                    });
+                }
+            });
+        };
+
+
+        window.userFlash = function () {
+            table.reload("memberTable",{page: {curr: 1 }});
+        }
+    });
+
+</script>
+</html>
