@@ -52,7 +52,7 @@ public class ProtalHomeController {
         Integer size = userService.insertUser(user);
 
         if(size > 0)
-            return "redirect: /login/login";
+            return "redirect:/login/login";
         else
             return "404";
     }
