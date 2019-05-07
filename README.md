@@ -44,11 +44,15 @@
 
    密码：123456
 
+
+
    ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557198436800.png?Expires=1872558435&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=r%2B2NWEPhvAXk70SMWlm5xiYu4jM%3D)
 
 
 
-   ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557198528207.png?Expires=1872558522&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=a2QdeHsvdOLKyNlSudenIOOH5Lk%3D)
+   
+
+![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557198528207.png?Expires=1872558522&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=a2QdeHsvdOLKyNlSudenIOOH5Lk%3D)
 
 2. 门户网站访问
 
@@ -58,9 +62,13 @@
 
    密码：123456
 
+
+
    ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557198436800.png?Expires=1872558435&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=r%2B2NWEPhvAXk70SMWlm5xiYu4jM%3D)
 
    访问登陆网址：http://129.204.182.56:8080/protal/commodity 
+
+
 
    ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557198546259.png?Expires=1872558544&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=G%2FnsB9I7M2akjwrL5mBqg5a53LY%3D)
 
