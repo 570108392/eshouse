@@ -58,7 +58,7 @@
 
 2. 门户网站注册
 
-   访问网址：http://localhost:8080/protal/registe
+   访问网址：http://129.204.182.56:8080/protal/registe
 
    ![](http://oss-images-zp.oss-cn-shenzhen.aliyuncs.com/imgupload/1557218187804.png?Expires=1872578178&OSSAccessKeyId=LTAIjMx4rndEJ9f2&Signature=S%2FgsSkJPdxdAR7WpPLa94OBBG3o%3D)
 

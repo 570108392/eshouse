@@ -42,10 +42,12 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 		if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_COM"))){
 		    super.setTargetUrlParameter(USER_INDEX);
 		    super.setDefaultTargetUrl(USER_INDEX);
+			super.onAuthenticationSuccess(request,response,authentication);
         }
 		if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
 		    super.setTargetUrlParameter("/login/success");
 		    super.setDefaultTargetUrl("/login/success");
+			super.onAuthenticationSuccess(request,response,authentication);
         }
 			super.setTargetUrlParameter(USER_INDEX);
 			super.setDefaultTargetUrl(USER_INDEX);
