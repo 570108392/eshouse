@@ -24,4 +24,14 @@ public class OrderCardServiceImpl implements OrderCardService {
     public List<OrderCart> getAllOrderCartByUser(Integer uid) {
         return orderCartMapper.selectByUserID(uid);
     }
+
+    @Override
+    public List<OrderCart> getAllOrderCartByBatch(List<Integer> cartIds) {
+        return orderCartMapper.getAllOrderCartByBatch(cartIds);
+    }
+
+    @Override
+    public void deleteRoleBatchByBatch(List<Integer> cartIds) {
+        orderCartMapper.deleteRoleBatchByBatch(cartIds);
+    }
 }

@@ -76,4 +76,10 @@ public interface UserService {
      * @return
      */
     int updateUserRoleNameByUserID(Integer id, Integer rid);
+
+    /**
+     * 获取所有的普通用户
+     * @return
+     */
+    List<User> getAllUsersOfProtal();
 }

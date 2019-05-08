@@ -37,7 +37,7 @@
         </p>
         <div class="sn-quick-menu">
             <div class="login"><a href="/logout">退出</a></div>
-            <div class="sp-cart"><a href="/protal/shopcart">购物车</a><span>2</span></div>
+            <div class="sp-cart"><a href="/protal/shopcart">购物车</a></div>
         </div>
     </div>
 </div>
@@ -97,7 +97,6 @@
                     <input type="hidden" id="productId" name="productId">
                     <div class="title">
                         <h4 id="productName">男女宝宝秋冬装套装0一1岁婴儿衣服潮加厚连体衣保暖冬季外出抱衣 </h4>
-                        <span><i class="layui-icon layui-icon-rate-solid"></i>收藏</span>
                     </div>
                     <div class="summary">
                         <p class="reference"><span>参考价</span>￥
@@ -119,7 +118,7 @@
                         </div>
                     </div>
                     <div class="choose-btns">
-                        <button class="layui-btn layui-btn-primary purchase-btn">立刻购买</button>
+                        <button class="layui-btn layui-btn-primary purchase-btn" onclick="buyNow()">立刻购买</button>
                         <button class="layui-btn  layui-btn-danger car-btn" onclick="addCard()"><i
                                 class="layui-icon layui-icon-cart-simple"></i>加入购物车
                         </button>
@@ -130,51 +129,8 @@
         <div class="tab-title" style="    padding: 9px 7px 9px 5px;margin-bottom: 32px;background-color: #b1949412;">
             <a href="javascript:;" class="active tuang" data-content="tuangou" style="    border-bottom: 2px solid #cfb2f6;
     margin-left: 45%;line-height: 56px;color: #666666;font-size: 20px;display: inline-block;">热门推荐</a>
-            <!--<a href="javascript:;" data-content="yukao">明日预告</a>-->
         </div>
         <div class="layui-clear" id="list-cont">
-            <!--<div class="aside">
-                <h4>热销推荐</h4>
-                <div class="item">
-                    <div class="img"><a href="/protal/details/25"> <img
-                            src="https://img14.360buyimg.com/cms/jfs/t23323/87/2306598173/29090/ffd8d3e9/5b7aea8cNfacb285e.jpg"></a>
-                    </div>
-                    <div class="text"><p class="title">佳能（Canon）EOS 750D 单反套机 </p>
-                        <p class="price"><span class="pri">￥3.00</span> <span class="nub">1266付款</span></p></div>
-                </div>
-                <div class="item-list">
-                    <div class="item">
-                        <img src="/static/img/details_img2.jpg">
-                        <p><span>可爱宝宝粉色连体秋裤</span><span class="pric">￥99.00</span></p>
-                    </div>
-                    <div class="item">
-                        <img src="/static/img/details_img2.jpg">
-                        <p><span>可爱宝宝粉色连体秋裤</span><span class="pric">￥99.00</span></p>
-                    </div>
-                    <div class="item">
-                        <img src="/static/img/details_img2.jpg">
-                        <p><span>可爱宝宝粉色连体秋裤</span><span class="pric">￥99.00</span></p>
-                    </div>
-                    <div class="item">
-                        <img src="/static/img/details_img2.jpg">
-                        <p><span>可爱宝宝粉色连体秋裤</span><span class="pric">￥99.00</span></p>
-                    </div>
-                    <div class="item">
-                        <img src="/static/img/details_img2.jpg">
-                        <p><span>可爱宝宝粉色连体秋裤</span><span class="pric">￥99.00</span></p>
-                    </div>
-                    <div class="item">
-                        <img src="/static/img/details_img2.jpg">
-                        <p><span>可爱宝宝粉色连体秋裤</span><span class="pric">￥99.00</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="detail">
-                <h4>详情</h4>
-                <div class="item">
-                    <img src="/static/img/details_imgbig.jpg">
-                </div>
-            </div>-->
         </div>
     </div>
 </div>
@@ -189,7 +145,6 @@
             url: "/protal/productDetail/" + detail_url.split("/")[5],
             type: 'get',//method请求方式，get或者post
             success: function (data) {//res为相应体,function为回调函数
-                console.log(data);
                 if (data.success) {
                     $("#productImage").attr("src", data.t.productImage);
                     $("#productName").text(data.t.name);
@@ -246,6 +201,35 @@
                     ,"productId": $("#productId").val()
                     ,"price": $("#priceWeight").text()
                     ,"productAmount": $("#productCount").val()
+                    ,"image": $("#productImage").attr("src")
+                }),
+                success: function (data) {//res为相应体,function为回调函数
+                    console.log(data);
+                    if (data.success) {
+                        // layer.alert("加入购物车成功", {icon: 5});
+                        alert("加入购物车成功");
+                    }
+
+                },
+                error: function () {
+                    layer.alert("删除指定用户失败", {icon: 5});
+                }
+            });
+        }
+        window.buyNow = function () {
+            $.ajax({
+                url: "/cart/subNow",
+                type: 'post',//method请求方式，get或者post
+                dataType: 'json',//预期服务器返回的数据类型
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify({
+                    // "image": $("#productImage").attr("src")
+                    "productName": $("#productName").text()
+                    ,"customerId": $("#productUser").val()
+                    ,"productId": $("#productId").val()
+                    ,"productPrice": $("#priceWeight").text()
+                    ,"averageCost": $("#priceWeight").text()
+                    ,"productCnt": $("#productCount").val()
                     ,"image": $("#productImage").attr("src")
                 }),
                 success: function (data) {//res为相应体,function为回调函数

@@ -56,6 +56,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateUserRoleNameByUserID(id,rid);
     }
 
+    @Override
+    public List<User> getAllUsersOfProtal() {
+        return userMapper.getAllUsersOfProtal();
+    }
+
     public List<User> getAllUsers(){
         return userMapper.getAllUsers();
     }

@@ -77,7 +77,7 @@ public class LoginController {
                     "                  <p class='title'>"+productInfoVO.getProductName()+"</p>" +
                     "                  <p class='price'>" +
                     "                    <span class='pri'>￥"+productInfoVO.getProductPrice()+"</span>" +
-                    "                    <span class='nub'>1266付款</span>" +
+                    "                    <span class='nub'>库存："+productInfoVO.getProductStock()+"</span>" +
                     "                  </p>" +
                     "                </div>" +
                     "              </div>");

@@ -67,4 +67,8 @@ public interface OrderCartMapper {
 
     @Select("select * from order_cart where customer_id = #{uid}")
     List<OrderCart> selectByUserID(@Param("uid") Integer uid);
+
+    List<OrderCart> getAllOrderCartByBatch(@Param("list") List<Integer> list);
+
+    void deleteRoleBatchByBatch(@Param("list") List<Integer> list);
 }

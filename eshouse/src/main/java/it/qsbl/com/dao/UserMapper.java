@@ -21,6 +21,13 @@ public interface UserMapper {
     @Select("select * from user")
     List<User> getAllUsers();
 
+    /**
+     * 获取所有的普通用户
+     * @return
+     */
+    @Select("select * from user where status = 0")
+    List<User> getAllUsersOfProtal();
+
     User selectByPrimaryKey(Integer id);
 
     List<User> selectAllUserByCondition(@Param("name")String name,

@@ -49,6 +49,7 @@ public class ProtalHomeController {
         user.setName(username);
         user.setCreateTime(new Date());
         user.setId(new Random().nextInt(100000000));
+        user.setStatus(0);
         Integer size = userService.insertUser(user);
 
         if(size > 0)
