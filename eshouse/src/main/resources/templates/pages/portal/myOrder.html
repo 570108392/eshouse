@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+  <script type="text/javascript" src="/static/layui/layui.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="/static/css/font.css">
+  <link rel="stylesheet" href="/static/css/weadmin.css">
+</head>
+<style>
+  .logins {
+  min-height: 420px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .weadmin-body {
+    width: 1200px;
+    margin-left: 4%;
+  }
+
+  .layui-breadcrumb {
+    display: none;
+  }
+  .weadmin-nav {
+    display:none;
+  }
+</style>
+<body>
+<div class="site-nav-bg">
+  <div class="site-nav w1200">
+    <p class="sn-back-home">
+      <i class="layui-icon layui-icon-home"></i>
+      <a href="#">首页</a>
+    </p>
+    <div class="sn-quick-menu">
+      <div class="logins"><a href="/logout">退出</a></div>
+      <div class="sp-cart"><a href="/protal/shopcart">购物车</a></div>
+      <div class="sp-cart"><a href="/protal/myorder">我的订单</a></div>
+    </div>
+  </div>
+</div>
+<div class="header">
+  <div class="headerLayout w1200">
+    <div class="headerCon">
+      <h1 class="mallLogo">
+        <a href="#" title="购物商城">
+          <!--<img src="/static/img/logo.png">-->
+        </a>
+      </h1>
+      <div class="mallSearch">
+        <form action="" class="layui-form" novalidate>
+          <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
+          <button class="layui-btn" lay-submit lay-filter="formDemo">
+            <i class="layui-icon layui-icon-search"></i>
+          </button>
+          <input type="hidden" name="" value="">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content content-nav-base shopcart-content">
+  <div class="main-nav">
+    <div class="inner-cont0">
+      <div class="inner-cont1 w1200">
+        <div class="inner-cont2">
+          <a href="/protal/commodity" class="active">所有商品</a>
+          <a href="/protal/buytoday">今日团购</a>
+          <a href="/protal/information">最新资讯</a>
+          <a href="/protal/about">关于我们</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="banner-bg w1200">
+    <h3>夏季清仓</h3>
+    <p>宝宝被子、宝宝衣服3折起</p>
+  </div>
+</div>
+<div class="weadmin-body">
+  <table class="layui-hide" id="orderTable" lay-filter="orderTableFilter"></table>
+
+</div>
+<script src="/lib/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+<script type="text/html" id="order_status_select">
+  <select name="product_status" >
+    <option value="1">准备发货</option>
+    <option value="2">发货中</option>
+    <option value="-1">退货</option>
+    <option value="3">收货</option>
+  </select>
+  <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>-->
+</script>
+<script type="text/html" id="orderTableToolbar">
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="show">详情</a>
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">明细</a>
+  <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>-->
+</script>
+<script>
+    layui.use(['form', 'layedit', 'laydate','element','table','jquery'], function() {
+        var table = layui.table;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+
+        var table_list = table.render({
+            elem: '#orderTable'
+
+            ,toolbar: true
+            ,url:'/order/listByPerson'
+            ,method: 'post'
+            ,cols: [
+                [
+                    {field:'orderId',  title: '订单ID',width:100, sort: true,align:'center'}
+                    // ,{field:'orderSn', width:80,title: '用户名',align:'center'}
+                    // ,{field:'customerId', width:150, title: '邮件',align:'center'}
+                    ,{field:'shippingUser', width:110, title: '下单人',align:'center'}
+                    ,{field:'paymentMoney', title: '支付金额', width:100,align:'center'}
+                    ,{field:'shippingSn',  title: '快递单号',width:200,align:'center'}
+                    ,{field:'shippingTime',  title: '发货时间',width:130,align:'center'}
+                    ,{field:'createTime',  title: '下单时间',width:130,align:'center'}
+                    ,{field:'receiveTime',  title: '收货时间', width:130,align:'center'}
+                    ,{field:'orderStatus',  title: '订单状态',width:130, templet:function(d){
+                        var status = d.orderStatus;
+                        if(status == -1)
+                            return "退货";
+                        if(status == 1)
+                            return "准备发货";
+                        if(status == 2)
+                            return "发货中";
+                        if(status == 3)
+                            return "已收货";
+                    },width:100,align:'center'}
+                    ,{field:'edit',  title: '编辑',width:400, toolbar: '#orderTableToolbar',width:180,align:'center'}
+                ]
+            ]
+            ,page: true
+            ,response: {
+                statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+            }
+            ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+
+                $("#totalSize").text(res.total);
+                return {
+                    "code": res.status, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.total, //解析数据长度
+                    "data": res.t //解析数据列表
+                };
+            }
+        });
+
+        table.on('tool(orderTableFilter)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                var w = ($(window).width() * 0.9);
+                var h = ($(window).height() - 50);
+                var orderId = data.orderId;
+                layer.open({
+                    type: 2,
+                    area: [w + 'px', h + 'px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    shadeClose: true,
+                    shade: 0.4,
+                    title: '查看订单明细',
+                    content: '/protal/detail',
+                    success: function(layero, index){
+                        var body = layer.getChildFrame('body', index);
+                        body.find("#orderId").val(data.orderId);
+                    }
+                });
+            }
+            else if(obj.event === 'edit'){
+
+
+                var w = ($(window).width() * 0.9);
+                var h = ($(window).height() - 50);
+                layer.open({
+                    type: 2,
+                    area: [w + 'px', h + 'px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    shadeClose: true,
+                    shade: 0.4,
+                    title: '修改用户信息',
+                    content: '/orderHome/edit',
+                    success: function(layero, index){
+                        var body = layer.getChildFrame('body', index);
+                        $.ajax({
+                            url:"/order/getOrder/"+data.orderId,
+                            type:'get',//method请求方式，get或者post
+                            success:function(data){//res为相应体,function为回调函数
+                                if(data.status==200){
+                                    body.find("#orderId").val(data.t.orderId);
+                                    body.find("#orderSn").val(data.t.orderSn);
+                                    body.find("#customerId").val(data.t.customerId);
+                                    body.find("#shippingUser").val(data.t.shippingUser);
+                                    body.find("#address").val(data.t.address);
+                                    body.find("#orderMoney").val(data.t.orderMoney);
+                                    body.find("#shippingCompName").val(data.t.shippingCompName);
+                                    body.find("#shippingSn").val(data.t.shippingSn);
+                                    body.find("#createTime").val(data.t.createTime);
+                                    body.find("#shippingTime").val(data.t.shippingTime);
+                                    body.find("#payTime").val(data.t.payTime);
+                                    body.find("#paymentMoney").val(data.t.paymentMoney);
+                                    body.find("#receiveTime").val(data.t.receiveTime);
+                                    body.find("#orderStatus").val(data.t.orderStatus);
+                                }else{
+                                    layer.alert("查看用户信息失败",{icon: 5});
+                                }
+                            },
+                            error:function(){
+                                layer.alert("查看用户信息失败",{icon: 5});
+                            }
+                        });
+                    }
+                });
+
+
+            }
+            else if(obj.event === 'show'){
+                var w = ($(window).width() * 0.9);
+                var h = ($(window).height() - 50);
+                layer.open({
+                    type: 2,
+                    area: [w + 'px', h + 'px'],
+                    fix: false, //不固定
+                    maxmin: true,
+                    shadeClose: true,
+                    shade: 0.4,
+                    title: '查看订单信息',
+                    content: '/orderHome/show',
+                    success: function(layero, index){
+                        var body = layer.getChildFrame('body', index);
+                        $.ajax({
+                            url:"/order/getOrder/"+data.orderId,
+                            type:'get',//method请求方式，get或者post
+                            success:function(data){//res为相应体,function为回调函数
+                                if(data.status==200){
+                                    body.find("#orderId").val(data.t.orderId);
+                                    body.find("#orderSn").val(data.t.orderSn);
+                                    body.find("#customerId").val(data.t.customerId);
+                                    body.find("#shippingUser").val(data.t.shippingUser);
+                                    body.find("#address").val(data.t.address);
+                                    body.find("#orderMoney").val(data.t.orderMoney);
+                                    body.find("#shippingCompName").val(data.t.shippingCompName);
+                                    body.find("#shippingSn").val(data.t.shippingSn);
+                                    body.find("#createTime").val(data.t.createTime);
+                                    body.find("#shippingTime").val(data.t.shippingTime);
+                                    body.find("#payTime").val(data.t.payTime);
+                                    body.find("#paymentMoney").val(data.t.paymentMoney);
+                                    body.find("#receiveTime").val(data.t.receiveTime);
+                                    body.find("#orderStatus").val(data.t.orderStatus);
+                                    body.find("#modifiedTime").val(data.t.modifiedTime);
+                                }else{
+                                    layer.alert("查看订单信息失败",{icon: 5});
+                                }
+                            },
+                            error:function(){
+                                layer.alert("查看订单信息失败",{icon: 5});
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        //自定义多维度获取数据
+        window.search = function () {
+            //这里以搜索为例
+            table_list.reload({
+                where: { //设定异步数据接口的额外参数，任意设
+                    orderStatus: $(".layui-this").attr("lay-value")
+                    ,startTime: $("#start").val()
+                    ,endTime: $("#end").val()
+                }
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        };
+
+        //删除指定用户信息
+        /* window.deleteOne = function () {
+             $.ajax({
+                 url:"/admin/deleteOne",
+                 type:'post',//method请求方式，get或者post
+                 dataType:'json',//预期服务器返回的数据类型
+                 // contentType: 'application/x-www-form-urlencoded',
+                 contentType: "application/json;charset=UTF-8",
+                 data:JSON.stringify({"name":$("#username").val(),"phoneNumber":$("#phone").val(),"email":$("#L_email").val(),"password":$("#L_pass").val()}),
+                 // data:{"name":$("#username").val(),"phoneNumber":$("#phone").val(),"email":$("#L_email").val(),"password":$("#L_pass").val()},
+                 // data:$("#user-add-form").serializeArray(),//表格数据序列化
+                 success:function(data){//res为相应体,function为回调函数
+                     if(data.status==200){
+                         layer.alert(data.t,{icon:1});
+                         layer.close(layer.index);
+                         window.parent.location.reload();
+
+                     }else{
+                         layer.alert(data.msg,{icon: 5});
+                     }
+                 },
+                 error:function(){
+                     layer.alert("添加用户失败",{icon: 5});
+                 }
+             });
+         }*/
+
+        window.userFlash = function () {
+            table.reload("orderTable",{page: {curr: 1 }});
+        }
+    });
+
+    /*  function getUser(data){
+          $.ajax({
+              url:"/admin/getUser/"+data.id,
+              type:'get',//method请求方式，get或者post
+              success:function(data){//res为相应体,function为回调函数
+                  if(data.status==200){
+                      $("#username").val(data.name);
+                      $("#phone").val(data.phone);
+                      $("#L_email").val(data.L_email);
+                      $("#password").val(data.password);
+                      $("#passwordSeconde").val(data.passwordSeconde);
+
+                  }else{
+                      layer.alert(data.msg,{icon: 5});
+                  }
+              },
+              error:function(){
+                  layer.alert("添加用户失败",{icon: 5});
+              }
+          });
+      }*/
+</script>
+</html>

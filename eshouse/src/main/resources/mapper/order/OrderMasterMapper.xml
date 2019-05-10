@@ -379,4 +379,20 @@
     </where>
 
   </select>
+  <select id="getAllOrderByConitionByPerson"  resultMap="BaseResultVO">
+
+    select  * from order_master
+    <where>
+
+      <if test="orderStatus != null and orderStatus != '' ">
+
+        and order_status LIKE '%${orderStatus}%'
+      </if>
+      <if test="startTime != null and startTime != '' and endTime != null and  endTime != ''">
+        and create_time between  str_to_date(#{startTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s') and  str_to_date(#{endTime,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%s')
+      </if>
+       and customer_id = #{id,jdbcType=INTEGER}
+    </where>
+
+  </select>
 </mapper>

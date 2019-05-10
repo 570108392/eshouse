@@ -20,7 +20,7 @@ i{font-style: normal;}
 .sn-back-home{float: left;}
 .sn-back-home i{margin:0 4px 0 8px; font-size: 14px;}
 .sn-quick-menu{position: absolute; right: 12px;}
-.sn-quick-menu div{float: left;}
+.sn-quick-menu div{float: left;margin-right: 22px;}
 .sn-quick-menu div.login{margin-right: 22px; }
 .sn-quick-menu div.login a{color: #ff5500;}
 .sn-quick-menu div.sp-cart span{margin-left:4px; color: #ff5500; font-weight: bold;}

@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.Date;
 
-@Document(indexName = "goodsinfo",type = "goodsCommodity",replicas = 0,shards = 1,createIndex = true)
+@Document(indexName = "goodsinfos",type = "goodsCommoditySearch",replicas = 0,shards = 1,createIndex = true)
 @Data
 public class GoodsInfo implements Serializable {
 
@@ -37,7 +37,7 @@ public class GoodsInfo implements Serializable {
     @Field(type = FieldType.Integer)
     private Integer productStatus;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Auto)
     private String name;
 
     @Field(type = FieldType.Text)

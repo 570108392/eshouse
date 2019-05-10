@@ -9,8 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+//@ComponentScan("it.qsbl.com")
 @SpringBootApplication
-@ComponentScan("it.qsbl.com")
 @EnableRabbit
 public class EshouseApplication {
 
@@ -18,11 +18,12 @@ public class EshouseApplication {
         SpringApplication.run(EshouseApplication.class, args);
     }
 
-    public RestHighLevelClient esClient(){
-        RestClientBuilder builder = RestClient.builder(new HttpHost("129.204.182.56", 9300, "http"));
-
-        RestHighLevelClient highLevelClient = new RestHighLevelClient(builder);
-        return  highLevelClient;
-    }
+//    public RestHighLevelClient esClient(){
+//        RestClientBuilder builder = RestClient.builder(new HttpHost("129.204.182.56", 9300, "http"));
+//
+//        RestHighLevelClient highLevelClient = new RestHighLevelClient(builder);
+//        return  highLevelClient;
+//    }
 
 }
+

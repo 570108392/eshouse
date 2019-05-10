@@ -33,4 +33,8 @@ public interface OrderMasterMapper {
     Integer updateStatusToOrder(@Param("stauts") Integer status,
                                 @Param("order_id") Integer orderID);
 
+    List<OrderMasterVO> getAllOrderByConitionByPerson(@Param("id")Integer id,
+                                                      @Param("orderStatus")Byte orderStatus,
+                                                      @Param("startTime")String startTime,
+                                                      @Param("endTime")String endTime);
 }

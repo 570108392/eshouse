@@ -44,4 +44,9 @@ public class OrderMasterServiceImpl  implements OrderMasterService {
     public Integer updateStatusToOrder(Integer status, Integer id) {
         return orderMasterMapper.updateStatusToOrder(status,id);
     }
+
+    @Override
+    public List<OrderMasterVO> getAllOrderByConditionByPerson(Integer id, Byte orderStatus, String startTime, String endTime) {
+        return  orderMasterMapper.getAllOrderByConitionByPerson(id,orderStatus,startTime,endTime);
+    }
 }

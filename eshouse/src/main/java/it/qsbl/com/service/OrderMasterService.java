@@ -18,4 +18,6 @@ public interface OrderMasterService {
     List<OrderMasterVO> getAllOrderByCondition(Byte orderStatus,String startTime,String endTime);
 
     Integer updateStatusToOrder(Integer status, Integer id);
+
+    List<OrderMasterVO> getAllOrderByConditionByPerson(Integer id, Byte orderStatus, String startTime, String endTime);
 }

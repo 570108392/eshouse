@@ -35,6 +35,15 @@ public class ProtalHomeController {
 
     }
 
+    @GetMapping("myorder")
+    public String myOrder(){
+        return BASE_PROTAL_URL+"myOrder";
+    }
+    @GetMapping("detail")
+    public String detail(){
+        return BASE_PROTAL_URL+"detail";
+    }
+
     /**
      * 用户注册
      * @param username
