@@ -17,10 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class AliOSSUtil {
     Log log = LogFactory.getLog(AliOSSUtil.class);
     // endpoint以杭州为例，其它region请按实际情况填写
-    protected static String endpoint = "oss-cn-shenzhen.aliyuncs.com";
-    protected static String accessKeyId  = "LTAIjMx4rndEJ9f2";
-    protected static String accessKeySecret  = "wmTb17ROKH16rqGKMQc9nWDtVKGgpi";
-    protected static String bucketName  = "oss-images-zp";
+    protected static String endpoint = "******************";
+    protected static String accessKeyId  = "******************";
+    protected static String accessKeySecret  = "******************";
+    protected static String bucketName  = "******************";
 
     //文件存储目录
     private String filedir = "imgupload/";
